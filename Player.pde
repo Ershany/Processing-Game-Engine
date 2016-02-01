@@ -14,6 +14,7 @@ public class Player extends Mob {
    init();
  }
  
+ // Test
  public void init() {
    health = 100;
    xSpeed = 2.2f;
