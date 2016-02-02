@@ -9,7 +9,7 @@ public class LevelOneState extends GameState {
  
  public void init() {
    map = new Tilemap("level1.png", 1024, 1024, this);
-   player = new Player(1024, 1024, map, this);
+   player = new Player(1024, 1024, map);
  }
  
  public void update() {
@@ -44,19 +44,5 @@ public class LevelOneState extends GameState {
  }
  public void keyReleased(String key) {
    player.keyReleased(key);  
- }
- 
- // Mouse Controller
- public void mousePressed(String key) {
-   player.mousePressed(key);
- }
- public void mouseReleased(String key) {
-   
- }
- public void mouseDragged(String key) {
-   
- }
- public void mouseWheel(String key) {
-   player.mouseWheel(key);
  }
 }

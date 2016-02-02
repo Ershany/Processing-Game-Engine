@@ -2,7 +2,6 @@ private Game game;
 
 public static final int WIDTH = 800;
 public static final int HEIGHT = 600;
-public static Form form = Form.DEFAULT;
 
 void setup() {
   size(800, 600);
@@ -40,26 +39,13 @@ void keyReleased() {
 
 // Mouse Controller
 void mousePressed() {
-  String name = "";
-  if(mouseButton == LEFT) 
-    name = "left";
-  else if(mouseButton == RIGHT)
-    name = "right";
-  game.mousePressed(name);
+  game.mousePressed();
 }
 void mouseDragged() {
-  game.mouseDragged("");
+  game.mouseDragged();
 }
 void mouseReleased() {
-  String name = "";
-  if(mouseButton == LEFT)
-    name = "left";
-  else if(mouseButton == RIGHT)
-    name = "right";
-  game.mouseReleased(name);
-}
-void mouseWheel(MouseEvent e) {
-  game.mouseWheel("");
+  game.mouseReleased();
 }
 
 class Game {
@@ -82,25 +68,19 @@ class Game {
    gsm.render();
  }
  
- // Key Controller
  public void keyPressed(String key) {
    gsm.keyPressed(key);
  }
  public void keyReleased(String key) {
    gsm.keyReleased(key); 
  }
- 
- // Mouse Controller
- public void mousePressed(String key) {
-   gsm.mousePressed(key);
+ public void mousePressed() {
+     
  }
- public void mouseReleased(String key) {
-   gsm.mouseReleased(key);
+ public void mouseDragged() {
+   
  }
- public void mouseDragged(String key) {
-   gsm.mouseDragged(key);
- }
- public void mouseWheel(String key) {
-   gsm.mouseWheel(key);
+ public void mouseReleased() {
+   
  }
 }

@@ -22,7 +22,6 @@ public class GameStateManager {
    stack.peek().render();
  }
  
- // Key Controller
  public void keyPressed(String key) {
    if(stack.size() == 0) return;
    stack.peek().keyPressed(key); 
@@ -30,24 +29,6 @@ public class GameStateManager {
  public void keyReleased(String key) {
    if(stack.size() == 0) return;
    stack.peek().keyReleased(key);
- }
- 
- // Mouse Controller
- public void mousePressed(String key) {
-   if(stack.size() == 0) return;
-   stack.peek().mousePressed(key);
- }
- public void mouseReleased(String key) {
-   if(stack.size() == 0) return;
-   stack.peek().mouseReleased(key);
- }
- public void mouseDragged(String key) {
-   if(stack.size() == 0) return;
-   stack.peek().mouseDragged(key);
- }
- public void mouseWheel(String key) {
-   if(stack.size() == 0) return;
-   stack.peek().mouseWheel(key);
  }
  
  // Getters

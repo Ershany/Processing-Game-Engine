@@ -1,41 +1,53 @@
-public enum Form {
-  MELEE, RANGED, DEFAULT
-}
-
 public class Player extends Mob {
-  
+ 
+ // Camera controls
+ private float panSpeed = 4.1f;
+ private int panArea = 100;
  private boolean moveUp, moveDown, moveRight, moveLeft; 
- private GameState state;
   
- public Player(float x, float y, Tilemap map, GameState state) {
+ public Player(float x, float y, Tilemap map) {
    super(x, y, map);
-   this.state = state;
    
    init();
  }
  
  // Test
  public void init() {
-   health = 100;
-   xSpeed = 2.2f;
+   xSpeed = panSpeed;
    ySpeed = xSpeed / 4 * 3;
+   /*health = 100;
    width = 32;
    height = 32;
-   hitbox = new Rectangle((int)x, (int)y, width, height);
-   
-   // Set new cursor
-   form = Form.MELEE;
-   state.setForm();
+   hitbox = new Rectangle((int)x, (int)y, width, height);*/
  }
  
  public void update() {
-   cooldownManager.update();
+   checkPan();
    checkMovement();
    checkOffset();
  }
  
  public void render(int xOffset, int yOffset) {
-   ellipse(x - xOffset, y - yOffset, 20, 20);
+   //ellipse(x - xOffset, y - yOffset, 20, 20);
+ }
+ 
+ private void checkPan() {
+   if(mouseX >= Project.WIDTH - panArea) 
+     moveRight = true;
+   else 
+     moveRight = false;
+   if(mouseX <= panArea)
+     moveLeft = true;
+   else
+     moveLeft = false;
+   if(mouseY >= Project.HEIGHT - panArea)
+     moveDown = true;
+   else 
+     moveDown = false;
+   if(mouseY <= panArea)
+     moveUp = true;
+   else 
+     moveUp = false;
  }
  
  float xChange, yChange;
@@ -59,38 +71,30 @@ public class Player extends Mob {
  }
  
  private void moveX(float xChange) {  
-   if(map.getTile((int)(x + xChange), (int)y).getWalkSolid()) {
-     return;  
-   }
-   
    // Change player position
    x += xChange;
-   hitbox.x = (int)x;
+   
+   // Make sure the offset does not go off of the map
+   if(x < 512) 
+     x = 512;
+   else if(x > (map.getWidth() << 5) - 512)
+     x = (map.getWidth() << 5) - 512;
+   if(y < 412)
+     y = 412;
+   if(y > (map.getHeight() << 5) - 412)
+     y = (map.getHeight() << 5) - 412;
  }
  private void moveY(float yChange) {  
-   if(map.getTile((int)x, (int)(y + yChange)).getWalkSolid()) {
-     return;  
-   }
-   
    // Change player position
    y += yChange;
-   hitbox.y = (int)y;
- }
- 
- private void checkAttack(String key) {
-   if(key.equalsIgnoreCase("left")) {
-     
-   }
- }
- 
- // Cooldown Manager
- public void cooldownEvent(String cooldown) {
    
+   // Make sure the offset does not go off of the map
+   //if(y < 312)
  }
  
  // Key Controller
  public void keyPressed(String key) {
-   if(key.equalsIgnoreCase("up")) {
+   /*if(key.equalsIgnoreCase("up")) {
      moveUp = true;
    }
    if(key.equalsIgnoreCase("down")) {
@@ -101,10 +105,10 @@ public class Player extends Mob {
    }
    if(key.equalsIgnoreCase("left")) {
      moveLeft = true;
-   }
+   }*/
  }
  public void keyReleased(String key) {
-   if(key.equalsIgnoreCase("up")) {
+   /*if(key.equalsIgnoreCase("up")) {
      moveUp = !moveUp;
    }
    if(key.equalsIgnoreCase("down")) {
@@ -115,20 +119,7 @@ public class Player extends Mob {
    }
    if(key.equalsIgnoreCase("left")) {
      moveLeft = !moveLeft;
-   }
- }
- 
- // Mouse Controller
- public void mouseWheel(String key) {
-   if(form == Form.MELEE) 
-     form = Form.RANGED;
-   else if(form == Form.RANGED)
-     form = Form.MELEE;
-   
-   state.setForm();
- }
- public void mousePressed(String key) {
-   checkAttack(key);
+   }*/
  }
  
 }

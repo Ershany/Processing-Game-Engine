@@ -7,18 +7,17 @@ public abstract class Mob extends Entity {
   protected int health;
   protected float xSpeed, ySpeed;
   protected int width, height;
-  protected CooldownManager cooldownManager;
   
   public Mob(float x, float y, Tilemap map) {
     super(x, y);
     this.map = map;
+    
+    init();
   }
   
   public abstract void init();
   public abstract void update();
   public abstract void render(int xOffset, int yOffset);
-  
-  public abstract void cooldownEvent(String cooldown);
   
   public void checkDead() {
     if(health <= 0) {

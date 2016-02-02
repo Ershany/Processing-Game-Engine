@@ -46,6 +46,12 @@ public class Tilemap {
           case 0xFF0026FF:
             toPlace = new WaterTile(x, y, state.water.getImage());
             break;
+          case 0xFF00FF21:
+            toPlace = new InterchangeableFloorTile(x, y, state.grass.getImage());
+            break;
+          case 0xFFFFAA00:
+            toPlace = new InterchangeableFloorTile(x, y, state.sand.getImage());
+            break;
         }
         tiles[y][x] = toPlace;
       }
@@ -55,6 +61,7 @@ public class Tilemap {
   public void update() {
     for(int y = 0; y < height; y++) {
       for(int x = 0; x < width; x++) {
+        //println("x : " + x  + "   y : " + y);
         tiles[y][x].update(); 
       }
     }

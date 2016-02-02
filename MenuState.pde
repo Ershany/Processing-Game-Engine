@@ -5,7 +5,7 @@ public class MenuState extends GameState {
  
  private Tilemap map;
  
- private String[] choices = { "Play", "Info", "Quit" };
+ private String[] choices = { "Play", "Credits", "Quit" };
  private PFont font;
  private int currentChoice = 0;
   
@@ -39,7 +39,7 @@ public class MenuState extends GameState {
      else {
        fill(255);
      }
-     text(choices[i], 350, 100 + 125 * i);
+     text(choices[i], 390 - (choices[i].length() * 13), 300 + 125 * i);
    }
  }
  
@@ -73,19 +73,17 @@ public class MenuState extends GameState {
    
    switch(currentChoice) {
      case 0:
-       startY = 75;
+       startY = 275;
        break;
      case 1:
-       startY = 200;
+       startY = 400;
        break;
      case 2:
-       startY = 325;
+       startY = 525;
        break;
    }
    
-   //info on orig and spray
-   //75 200 325   spray 25
-   
+   // Spawn particles
    new Spawner(Type.PARTICLE, -30, startY + changeY, 13.2f, 0f, new RGB(255, 0, 0), 80, 30, 2, 1, RenderType.STATIC, this);
  }
 
@@ -125,20 +123,6 @@ public class MenuState extends GameState {
    }
  }
  public void keyReleased(String key) {
-   
- }
- 
- // Mouse Controller
- public void mousePressed(String key) {
-   
- }
- public void mouseReleased(String key) {
-   
- }
- public void mouseDragged(String key) {
-   
- }
- public void mouseWheel(String key) {
    
  }
 }
