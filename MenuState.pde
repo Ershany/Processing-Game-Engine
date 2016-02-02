@@ -125,4 +125,15 @@ public class MenuState extends GameState {
  public void keyReleased(String key) {
    
  }
+ 
+ // Mouse Controller
+ public void mousePressed() {
+   
+ }
+ public void mouseReleased() {
+   
+ }
+ public void mouseDragged() {
+   
+ }
 }

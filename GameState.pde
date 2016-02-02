@@ -27,6 +27,10 @@ public abstract class GameState {
   public abstract void keyPressed(String key);
   public abstract void keyReleased(String key);
   
+  public abstract void mousePressed();
+  public abstract void mouseDragged();
+  public abstract void mouseReleased();
+  
   // getters
   public GameStateManager getGSM() {
     return gsm; 

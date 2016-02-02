@@ -45,4 +45,15 @@ public class LevelOneState extends GameState {
  public void keyReleased(String key) {
    player.keyReleased(key);  
  }
+ 
+ // Mouse Controller
+ public void mousePressed() {
+   
+ }
+ public void mouseReleased() {
+   
+ }
+ public void mouseDragged() {
+   
+ }
 }

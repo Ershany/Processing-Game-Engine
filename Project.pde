@@ -75,12 +75,12 @@ class Game {
    gsm.keyReleased(key); 
  }
  public void mousePressed() {
-     
+   gsm.mousePressed();
  }
  public void mouseDragged() {
-   
+   gsm.mouseDragged();
  }
  public void mouseReleased() {
-   
+   gsm.mouseReleased();
  }
 }

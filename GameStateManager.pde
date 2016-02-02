@@ -31,6 +31,19 @@ public class GameStateManager {
    stack.peek().keyReleased(key);
  }
  
+ public void mousePressed() {
+   if(stack.size() == 0) return;
+   stack.peek().mousePressed();
+ }
+ public void mouseDragged() {
+   if(stack.size() == 0) return;
+   stack.peek().mouseDragged();
+ }
+ public void mouseReleased() {
+   if(stack.size() == 0) return;
+   stack.peek().mouseReleased();
+ }
+ 
  // Getters
  public Stack<GameState> getStates() {
    return stack; 
