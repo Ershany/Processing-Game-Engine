@@ -24,7 +24,9 @@ public class LevelOneUI {
   
   public void mousePressed() {
     for (UIButton button: buttons) {
-         button.click(); 
+         if (button.isMouseInside()) {
+           button.click(); 
+         }
     }
   }
   

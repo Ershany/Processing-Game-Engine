@@ -32,7 +32,7 @@ public abstract class UIButton extends UIElement {
        this.rgb = rgb;
    }
    
-   public boolean isPressed() {
+   public boolean isMouseInside() {
       if (x < mouseX && mouseX < x + radius && y < mouseY && mouseY < y + radius) {
          return true; 
       }
