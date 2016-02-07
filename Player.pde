@@ -2,7 +2,7 @@ public class Player extends Mob {
  
  // Camera controls
  private float panSpeed = 4.1f;
- private int panArea = 100;
+ private int panArea = 10;
  private boolean moveUp, moveDown, moveRight, moveLeft; 
   
  public Player(float x, float y, Tilemap map) {

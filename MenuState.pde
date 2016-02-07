@@ -3,6 +3,9 @@ import java.util.List;
 
 public class MenuState extends GameState {
  
+ //Logo 
+ private Sprite logo;
+  
  private Tilemap map;
  
  private String[] choices = { "Play", "Credits", "Quit" };
@@ -14,8 +17,10 @@ public class MenuState extends GameState {
  }
  
  public void init() {
+   cursor(cursorImage.getImage());
    map = new Tilemap("menu.png", 64, 64, this);
    font = createFont("Arial", 64, true);
+   logo = new Sprite("Logo.png");
    textFont(font);
  }
  
@@ -25,12 +30,21 @@ public class MenuState extends GameState {
    spawnParticles();
    updateLists();
    checkRemoved();
+   
+   // Smooth map loop
+   if(map.getYOffset() >= 3600) {
+     map.setOffset(64, 64 + (map.getYOffset() % 3600)); 
+   }
  }
  
  public void render() {
    map.render();
    renderLists();
    
+   // Draw logo
+   image(logo.getImage(), 245, 10);
+   
+   textFont(font);
    // Draw choices
    for(int i = 0; i < choices.length; i++) {
      if(currentChoice == i) {
@@ -97,7 +111,7 @@ public class MenuState extends GameState {
         gsm.getStates().push(new LevelOneState(gsm));
      }
      else if(currentChoice == 1) {
-       
+        gsm.getStates().push(new CreditsState(gsm));
      }
      else {
        System.exit(0);

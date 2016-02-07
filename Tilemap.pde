@@ -52,6 +52,9 @@ public class Tilemap {
           case 0xFFFFAA00:
             toPlace = new InterchangeableFloorTile(x, y, state.sand.getImage());
             break;
+          case 0xFF602600:
+            toPlace = new InterchangeableFloorTile(x, y, state.wood.getImage());
+            break;
         }
         tiles[y][x] = toPlace;
       }

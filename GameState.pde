@@ -3,11 +3,14 @@ import java.util.ArrayList;
 public abstract class GameState {
   
   // Graphics for the gamestate
+  public Sprite cursorImage = new Sprite("cursor.png");
+  
   public Spritesheet tiles = new Spritesheet("tiles.png", 32, 32);
   public Sprite castleFloor = new Sprite(0, 0, tiles);
   public Sprite water = new Sprite(1, 0, tiles);
   public Sprite grass = new Sprite(2, 0, tiles);
   public Sprite sand = new Sprite(3, 0, tiles);
+  public Sprite wood = new Sprite(4, 0, tiles);
   
   // Lists to update and render
   protected List<Particle> particleList = new ArrayList<Particle>();
