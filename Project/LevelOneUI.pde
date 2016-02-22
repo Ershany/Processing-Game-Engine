@@ -1,9 +1,9 @@
 public class LevelOneUI {
  
-  protected GameState state;
+  protected LevelOneState state;
   private UIButton[] buttons;
   
-  public LevelOneUI(GameState state) {
+  public LevelOneUI(LevelOneState state) {
     this.state = state;  
     setup();
   }
@@ -25,7 +25,7 @@ public class LevelOneUI {
   public void mousePressed() {
     for (UIButton button: buttons) {
          if (button.isMouseInside()) {
-           button.click(); 
+           button.click();
          }
     }
   }

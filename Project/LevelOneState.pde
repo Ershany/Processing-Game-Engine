@@ -1,7 +1,7 @@
+import java.util.ArrayList;
+
 public class LevelOneState extends GameState {
  
- private Player player;
- private Tilemap map;
  private LevelOneUI ui;
  private int wave;
   
@@ -14,6 +14,21 @@ public class LevelOneState extends GameState {
    player = new Player(1024, 1024, this);
    ui = new LevelOneUI(this);
    wave = 1;
+   enemies = new ArrayList<Mob>();
+   projectiles = new ArrayList<Projectile>();
+   
+   enemies.add(new Grunt(32 * 120, 320, map));
+   enemies.add(new Grunt(32 * 122, 320, map));
+   enemies.add(new Grunt(32 * 124, 320, map));
+   enemies.add(new Grunt(32 * 126, 320, map));
+   enemies.add(new Grunt(32 * 128, 320, map));
+   enemies.add(new Grunt(32 * 130, 320, map));
+   enemies.add(new Grunt(32 * 118, 320, map));
+   enemies.add(new Grunt(32 * 116, 320, map));
+   enemies.add(new Grunt(32 * 114, 320, map));
+   enemies.add(new Grunt(32 * 112, 320, map));
+   enemies.add(new Grunt(32 * 110, 320, map));
+   enemies.add(new Grunt(32 * 108, 320, map));
  }
  
  public void update() {
@@ -21,26 +36,44 @@ public class LevelOneState extends GameState {
    player.update();
    updateLists();
    checkRemoved();
-   player.update();
  }
  
  public void render() {
    map.render();
-   player.render(map.getXOffset(), map.getYOffset());
    renderLists();
+   player.render(map.getXOffset(), map.getYOffset());
    ui.render();
  }
  
  private void checkRemoved() {
-   
+   for(int i = 0; i < enemies.size(); i++) {
+     if(enemies.get(i).getShouldRemove()) {
+       enemies.remove(i);    
+     }
+   }
+   for(int i = 0; i < projectiles.size(); i++) {
+     if(projectiles.get(i).getShouldRemove()) {
+       projectiles.remove(i);  
+     }
+   }
  }
  
  private void updateLists() {
-   
+   for(int i = 0; i < enemies.size(); i++) {
+     enemies.get(i).update();  
+   }
+   for(int i = 0; i < projectiles.size(); i++) {
+     projectiles.get(i).update();  
+   }
  }
  
  private void renderLists() {
-   
+   for(int i = 0; i < enemies.size(); i++) {
+     enemies.get(i).render(map.getXOffset(), map.getYOffset());
+   }
+   for(int i = 0; i < projectiles.size(); i++) {
+     projectiles.get(i).render(map.getXOffset(), map.getYOffset());  
+   }
  }
  
  // Key Controller
@@ -69,5 +102,8 @@ public class LevelOneState extends GameState {
  }
  public Tilemap getTilemap() {
    return map;  
+ }
+ public Player getPlayer() {
+   return player;  
  }
 }

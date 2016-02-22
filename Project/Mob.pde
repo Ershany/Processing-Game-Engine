@@ -9,6 +9,7 @@ public abstract class Mob extends Entity {
   protected int width, height;
   public boolean stunned;
   public boolean shouldShow = true;
+  protected int worth;
   
   public Mob(float x, float y, Tilemap map) {
     super(x, y);
@@ -41,6 +42,10 @@ public abstract class Mob extends Entity {
   public abstract void init();
   public abstract void update();
   public abstract void render(int xOffset, int yOffset);
+  
+  public void hit(int damage) {
+    health -= damage;  
+  }
   
   public void checkDead() {
     if(health <= 0) {

@@ -24,7 +24,7 @@ public class Player extends Mob {
    gold = 500;
    xSpeed = panSpeed;
    ySpeed = xSpeed / 4 * 3;
-   font = createFont("Arial", 24, true);
+   font = createFont("Gothic.ttf", 24, true);
    /*health = 100;
    width = 32;
    height = 32;
@@ -34,7 +34,7 @@ public class Player extends Mob {
  public void update() {
    checkPan();
    checkMovement();
-   checkOffset();
+   checkOffset();   
  }
  
  public void render(int xOffset, int yOffset) {
@@ -45,8 +45,11 @@ public class Player extends Mob {
    
    // Draw what wave the player is on
    text("Wave: ", 10, 55);
-   
-   //ellipse(x - xOffset, y - yOffset, 20, 20);
+
+   // Draw the tower at the mouse position if the player is gonna place one
+   if(towerToPlace != null) {
+     image(towerToPlace.getImage(), mouseX, mouseY);  
+   }
  }
  
  private void checkPan() {
@@ -111,11 +114,22 @@ public class Player extends Mob {
      y = (map.getHeight() << 5) - 412;
  }
  
+ 
+ 
+ // Setters
+ public void addGold(int amount) {
+   gold += amount;  
+ }
+ 
+ 
  // Key Controller
- public void keyPressed(String key) {
-   if(key.equalsIgnoreCase("1")) 
-     towerToPlace = new BasicTower(null, state.basicTower.getImage());
-   
+ public void keyPressed(String key) {  
+   if(key.equalsIgnoreCase("1")) {
+     if(towerToPlace == null) 
+       towerToPlace = new BasicTower(null, state, state.basicTower.getImage());
+     else
+       towerToPlace = null;
+   } 
  }
  public void keyReleased(String key) {
    
@@ -135,13 +149,12 @@ public class Player extends Mob {
        else {
          // Tell the user they do not have enough gold 
        }
+       towerToPlace = null;
      }
      else {
        // Make a noise because you can't place a tile in that spot  
      }
    }
-   
-   towerToPlace = null;
  }
  
  
@@ -149,4 +162,10 @@ public class Player extends Mob {
  public int getGold() {
    return gold;  
  }
+ 
+ // Setters
+ public void setTowerToPlace(Tower tower) {
+   towerToPlace = tower;  
+ }
+ 
 }

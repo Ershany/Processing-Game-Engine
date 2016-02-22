@@ -17,6 +17,11 @@ public abstract class GameState {
   
   // Lists to update and render
   protected List<Particle> particleList = new ArrayList<Particle>();
+  public List<Mob> enemies;
+  public List<Projectile> projectiles;
+  protected Tilemap map;
+  
+  protected Player player;
   
   protected GameStateManager gsm;
   
@@ -45,5 +50,11 @@ public abstract class GameState {
   // setters
   public void addParticle(Particle p) {
     particleList.add(p); 
+  }
+  public Tilemap getTilemap() {
+    return map;  
+  }
+  public Player getPlayer() {
+    return player;  
   }
 }

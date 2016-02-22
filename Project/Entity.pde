@@ -1,7 +1,7 @@
 public class Entity {
   
    protected float x, y;
-   public boolean shouldRemove;
+   protected boolean shouldRemove;
    
    public Entity(float x, float y) {
      this.x = x;
@@ -14,5 +14,8 @@ public class Entity {
    }
    public float getY() {
     return y; 
+   }
+   public boolean getShouldRemove() {
+     return shouldRemove;  
    }
 }

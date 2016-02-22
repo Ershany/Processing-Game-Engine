@@ -48,6 +48,11 @@ public abstract class UIButton extends UIElement {
    public void setHotkey(int num) {
      hotkey = num;
    }
+   
+   // Getters
+   public int getHotkey() {
+     return hotkey;  
+   }
 }
 
 public class TowerPurchaseButton extends UIButton {

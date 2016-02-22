@@ -2,14 +2,18 @@ public abstract class Tower {
   
   public PImage image;
   protected int cost;
-  protected float damage;
+  protected int damage;
   protected int attackSpeed;
-  protected Rectangle range;
+  protected int range;
   
   protected Tile tile;
+  protected GameState state;
   
-  public Tower(Tile tile) {
+  protected boolean showRange; // NOTICE: Does not work due to how the tiles are rendered
+  
+  public Tower(Tile tile, GameState state) {
     this.tile = tile;
+    this.state = state;
     
     init();
   }
@@ -25,10 +29,22 @@ public abstract class Tower {
     }
   }
   
+  public void renderRange(int xOffset, int yOffset) {
+    if(showRange) {
+      line((tile.getX() << 5) - range - xOffset, (tile.getY() << 5) - range - yOffset, (tile.getX() << 5) + range - xOffset, (tile.getY() << 5) - range - yOffset);
+      line((tile.getX() << 5) - range - xOffset, (tile.getY() << 5) + range - yOffset, (tile.getX() << 5) + range - xOffset, (tile.getY() << 5) + range - yOffset);
+      line((tile.getX() << 5) - range - xOffset, (tile.getY() << 5) - range - yOffset, (tile.getX() << 5) - range - xOffset, (tile.getY() << 5) + range - yOffset);
+      line((tile.getX() << 5) + range - xOffset, (tile.getY() << 5) - range - yOffset, (tile.getX() << 5) + range - xOffset, (tile.getY() << 5) + range - yOffset);
+    }  
+  }
+  
   
   // Setters
   public void setTile(Tile tile) {
     this.tile = tile;  
+  }
+  public void setShowRange(boolean decide) {
+    showRange = decide;  
   }
   
   
@@ -45,8 +61,11 @@ public abstract class Tower {
   public float getAttackSpeed() {
     return attackSpeed;  
   }
-  public Rectangle getRange() {
+  public int getRange() {
     return range;  
+  }
+  public PImage getImage() {
+    return image;  
   }
   
 }

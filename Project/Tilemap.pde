@@ -106,6 +106,9 @@ public class Tilemap {
   public int getHeight() {
     return height; 
   }
+  public GameState getState() {
+    return state;  
+  }
   
   // Pass in pixel precision
   public Tile getTile(int x, int y) {

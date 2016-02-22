@@ -17,9 +17,9 @@ public class MenuState extends GameState {
  }
  
  public void init() {
-   cursor(cursorImage.getImage());
+   cursor(cursorImage.getImage(), 0, 0);
    map = new Tilemap("menu.png", 64, 64, this);
-   font = createFont("Arial", 64, true);
+   font = createFont("Gothic.ttf", 64, true);
    logo = new Sprite("Logo.png");
    textFont(font);
  }
@@ -53,7 +53,7 @@ public class MenuState extends GameState {
      else {
        fill(255);
      }
-     text(choices[i], 390 - (choices[i].length() * 13), 300 + 125 * i);
+     text(choices[i], 387 - (choices[i].length() * 10), 300 + 125 * i);
    }
  }
  

@@ -8,8 +8,8 @@ public class CreditsState extends GameState {
   }
   
   public void init() {
-    font1 = createFont("Arial", 64, true);
-    font2 = createFont("Arial", 26, true);
+    font1 = createFont("Gothic.ttf", 64, true);
+    font2 = createFont("Gothic.ttf", 26, true);
     currentY = 600;
   }
   
