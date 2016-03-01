@@ -5,6 +5,7 @@ public abstract class Tower {
   protected int damage;
   protected int attackSpeed;
   protected int range;
+  protected boolean shouldShoot;
   
   protected Tile tile;
   protected GameState state;

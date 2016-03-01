@@ -99,13 +99,41 @@ public class LevelOneState extends GameState {
      openList.remove(current);
      closedList.add(current);
      // Loop through adjacent tiles
-     for(int i = 0; i < 9; i++) {
+     /*for(int i = 0; i < 9; i++) {
        // If it is the current one we are on, skip it
        if(i == 4) continue;  
        int x = current.x;
        int y = current.y;
        int xi = (i % 3) - 1;
        int yi = (i / 3) - 1;
+       Tile at = map.getTile((x + xi) << 5, (y + yi) << 5);
+       if(at == null) continue;
+       if(at.getWalkSolid()) continue;
+       int newX = x + xi;
+       int newY = y + yi;
+       double gCost = current.gCost + getDistance(x, y, newX, newY);
+       double hCost = getDistance(x, y, xDest, yDest);
+       Node node = new Node(newX, newY, current, gCost, hCost);
+       if(coordInList(closedList, newX, newY) && gCost >= node.gCost) continue;
+       if(!coordInList(openList, newX, newY) || gCost < node.gCost) openList.add(node);
+     }*/
+     for(int i = 0; i < 4; i++) {
+       int x = current.x;
+       int y = current.y;
+       int xi = 0;
+       int yi = 0;
+       if(i == 0) {
+         xi = -1;
+       }
+       else if(i == 1) {
+         yi = -1;
+       }
+       else if(i == 2) {
+         yi = 1;
+       }
+       else if(i == 3) {
+         xi = 1;
+       }
        Tile at = map.getTile((x + xi) << 5, (y + yi) << 5);
        if(at == null) continue;
        if(at.getWalkSolid()) continue;

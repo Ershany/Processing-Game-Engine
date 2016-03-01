@@ -11,7 +11,7 @@ public class Grunt extends Mob {
   
   public void init() {
     // Statistics
-    health = 170;
+    health = 500; // should be 200
     xSpeed = 2f;
     ySpeed = 2f;
     width = 32;
@@ -20,6 +20,7 @@ public class Grunt extends Mob {
   }
   
   public void update() {
+    super.checkSlow();
     move();  
     checkLife();
   }

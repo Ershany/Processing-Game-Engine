@@ -27,6 +27,8 @@ void keyPressed() {
      game.keyPressed("enter");
    else if(key == '1') 
      game.keyPressed("1");
+   else if(key == '2')
+     game.keyPressed("2");
 }
 void keyReleased() {
    if(key == 'w' || keyCode == UP)
@@ -39,6 +41,8 @@ void keyReleased() {
      game.keyReleased("right");
    else if(key == '1') 
      game.keyReleased("1");
+   else if(key == '2')
+     game.keyReleased("2");
 }
 
 // Mouse Controller

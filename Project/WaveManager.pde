@@ -57,7 +57,7 @@ public class WaveManager {
       fill(125, 2, 88);
       textFont(font);
       
-      text((currentWaveTimer/60) + " seconds until next wave", 275, 150);
+      text((currentWaveTimer/60 + 1) + " seconds until next wave", 275, 150);
     }
   }
   

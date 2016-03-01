@@ -11,6 +11,10 @@ public abstract class Mob extends Entity {
   public boolean shouldShow = true;
   protected int worth;
   
+  public boolean slowed;
+  public int slowLength;
+  public float slowPower;
+  
   public Mob(float x, float y, Tilemap map) {
     super(x, y);
     this.map = map;
@@ -45,6 +49,34 @@ public abstract class Mob extends Entity {
   
   public void hit(int damage) {
     health -= damage;  
+  }
+  
+  public void slow(float slowPower, int slowLength) {
+    // Check to see if the unit is already slowed, if it is, just add more time onto the slow
+    if(slowed) {
+      this.slowLength += slowLength;
+    }
+    else {
+      slowed = true;
+      this.slowLength = slowLength;
+      this.slowPower = slowPower;
+      
+      xSpeed *= slowPower;
+      ySpeed *= slowPower;
+    }
+  }
+  
+  protected void checkSlow() {
+    if(slowed) {
+      slowLength--;
+      if(slowLength <= 0) {
+        slowed = false;
+        
+        // Multiply the speeds by the reciprocal
+        xSpeed *= (1/slowPower);
+        ySpeed *= (1/slowPower);
+      }
+    }
   }
   
   public void checkDead() {

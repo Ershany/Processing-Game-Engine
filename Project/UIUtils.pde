@@ -41,6 +41,8 @@ public abstract class UIButton extends UIElement {
       }
       return false;
    }
+   
+   public abstract void inside();
   
    public abstract void click();
    
@@ -58,13 +60,16 @@ public abstract class UIButton extends UIElement {
 public class TowerPurchaseButton extends UIButton {
  
     // Hotkey display font
-    PFont font = createFont("Arial", 20, true);
+    PFont font = createFont("Gothic.ttf", 24, true);  
+    private String info;
   
-    public TowerPurchaseButton(float x, float y, int[] rgb, int hotkey) {
+    public TowerPurchaseButton(float x, float y, int[] rgb, int hotkey, String info) {
         super(x, y, rgb, hotkey);
+        this.info = info;
     }
-    public TowerPurchaseButton(float x, float y, PImage image, int hotkey) {
+    public TowerPurchaseButton(float x, float y, PImage image, int hotkey, String info) {
       super(x, y, image, hotkey);  
+      this.info = info;
     }
     
     public void render() {
@@ -76,12 +81,18 @@ public class TowerPurchaseButton extends UIButton {
         image(image, x, y);    
         fill(255, 0, 0);
         textFont(font);
-        text(hotkey, x + radius / 2 - 7, y + 53);
+        fill(0, 0, 0);
+        text(hotkey, x + radius / 2 - 7, y + 56);
       }
     }
     
+    public void inside() {
+      fill(0, 0, 0);
+      text(info, 185, y - 200);
+    }
+    
     public void click() {
-        println("Tower1PurchaseButton clicked");
+      
     }
 }
 /* --------------End Buttons----------------- */

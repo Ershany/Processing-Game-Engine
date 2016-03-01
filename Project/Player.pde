@@ -125,11 +125,17 @@ public class Player extends Mob {
  // Key Controller
  public void keyPressed(String key) {  
    if(key.equalsIgnoreCase("1")) {
-     if(towerToPlace == null) 
+     if(!(towerToPlace instanceof BasicTower)) 
        towerToPlace = new BasicTower(null, state, state.basicTower.getImage());
      else
        towerToPlace = null;
    } 
+   else if(key.equalsIgnoreCase("2")) {
+     if(!(towerToPlace instanceof SlowTower)) 
+       towerToPlace = new SlowTower(null, state, state.slowTower.getImage());  
+     else 
+       towerToPlace = null;
+   }
  }
  public void keyReleased(String key) {
    

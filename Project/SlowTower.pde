@@ -1,19 +1,22 @@
-public class BasicTower extends Tower {
+public class SlowTower extends Tower {
   
   private float projectileSpeed = 12.3f;
   private int projectileSize = 4;
-  private RGB colour = new RGB(255, 0, 0);
+  private RGB colour = new RGB(0, 0, 204);
   
-  public BasicTower(Tile tile, GameState state, PImage image) {
+  private float slowingPower = 0.5f;
+  private int slowLength = 240;
+  
+  public SlowTower(Tile tile, GameState state, PImage image) {
     super(tile, state);
     this.image = image;
   }
   
   public void init() {
-    cost = 100;
-    damage = 5;
-    attackSpeed = 50;
-    range = 150;
+    cost = 200;
+    damage = 10;
+    attackSpeed = 140;
+    range = 100;
   }
   
   public void update() {
@@ -39,6 +42,7 @@ public class BasicTower extends Tower {
         currentTarget = state.enemies.get(i);
         if(currentTarget.getHealth() > 0 && Math.abs((tile.x << 5) - currentTarget.getX()) <= range && Math.abs((tile.y << 5) - currentTarget.getY()) <= range) {
           currentTarget.hit(damage);
+          currentTarget.slow(slowingPower, slowLength);
           //int lifeTime = (int)((Math.abs((currentTarget.getX() - (tile.x << 5))) + Math.abs((currentTarget.getY() - (tile.y << 5)))) / (projectileSpeed * 1.6));
           state.projectiles.add(new Projectile((tile.x << 5) + 15, (tile.y << 5) + 15, currentTarget.getX() + 15, currentTarget.getY() + 15, projectileSpeed, projectileSize, projectileSize, 200, colour, state.getTilemap()));
           shouldShoot = false;
