@@ -21,7 +21,7 @@ public class Player extends Mob {
  
  // Test
  public void init() {
-   gold = 500;
+   gold = 2000;
    xSpeed = panSpeed;
    ySpeed = xSpeed / 4 * 3;
    font = createFont("Gothic.ttf", 24, true);
@@ -44,11 +44,11 @@ public class Player extends Mob {
    text("Gold: " + gold, 10, 25);
    
    // Draw what wave the player is on
-   text("Wave: ", 10, 55);
+   text("Wave: " + state.waveManager.currentWave, 10, 55);
 
    // Draw the tower at the mouse position if the player is gonna place one
    if(towerToPlace != null) {
-     image(towerToPlace.getImage(), mouseX, mouseY);  
+     image(towerToPlace.getImage(), mouseX - 16, mouseY - 16);  
    }
  }
  
@@ -140,7 +140,8 @@ public class Player extends Mob {
      // Check to place the tile
      Tile temp = map.getTile(mouseX + map.getXOffset(), mouseY + map.getYOffset());
      if(!temp.getWalkSolid()) {
-       if(gold >= towerToPlace.getCost()) {
+       // If the player has enough gold and the wave is not in progress
+       if(gold >= towerToPlace.getCost() && !state.waveManager.inProgress) {
          towerToPlace.setTile(temp);
          map.addTower((mouseX + map.getXOffset()) >> 5, (mouseY + map.getYOffset()) >> 5, towerToPlace);
          temp = null;
