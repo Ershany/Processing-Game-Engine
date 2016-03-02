@@ -17,6 +17,7 @@ public abstract class GameState {
   public Spritesheet towers = new Spritesheet("towers.png", 32, 32);
   public Sprite basicTower = new Sprite(0, 0, towers);
   public Sprite slowTower = new Sprite(1, 0, towers);
+  public Sprite poisonTower = new Sprite(2, 0, towers);
   
   // Lists to update and render
   protected List<Particle> particleList = new ArrayList<Particle>();

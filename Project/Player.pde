@@ -136,6 +136,12 @@ public class Player extends Mob {
      else 
        towerToPlace = null;
    }
+   else if(key.equalsIgnoreCase("3")) {
+     if(!(towerToPlace instanceof PoisonTower))
+       towerToPlace = new PoisonTower(null, state, state.poisonTower.getImage());
+     else
+       towerToPlace = null;
+   }
  }
  public void keyReleased(String key) {
    

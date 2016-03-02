@@ -21,6 +21,7 @@ public class Speeder extends Mob {
   
   public void update() {
     super.checkSlow();
+    super.checkDot();
     move();  
     checkLife();
   }

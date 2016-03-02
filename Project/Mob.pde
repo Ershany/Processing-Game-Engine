@@ -15,6 +15,10 @@ public abstract class Mob extends Entity {
   public int slowLength;
   public float slowPower;
   
+  public boolean poisoned;
+  public int dotLength;
+  public int dotDps;
+  
   public Mob(float x, float y, Tilemap map) {
     super(x, y);
     this.map = map;
@@ -63,6 +67,26 @@ public abstract class Mob extends Entity {
       
       xSpeed *= slowPower;
       ySpeed *= slowPower;
+    }
+  }
+  
+  public void dot(int dotDps, int dotLength) {
+    this.dotDps += dotDps;
+    this.dotLength += dotLength;
+    poisoned = true;
+  }
+  
+  protected void checkDot() {
+    if(poisoned) {
+      dotLength--;
+      
+      // dot damage
+      if(dotLength % 60 == 0) {
+        health -= dotDps;
+      }
+      if(dotLength <= 0) {
+        poisoned = false;  
+      }
     }
   }
   
