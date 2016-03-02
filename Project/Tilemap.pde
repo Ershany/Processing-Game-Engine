@@ -77,6 +77,16 @@ public class Tilemap {
     }
   }
   
+  public void destroyRandomTower() {
+    for(int y = 0; y < height; y++) {
+      for(int x = 0; x < width; x++) {
+        if(tiles[y][x].getTower() != null) {
+          tiles[y][x].setTower(null);
+          return; // return after destroying the first tower encountered
+        }
+      }
+    }
+  }
   
   // Tile precision
   public void changeTile(int x, int y, Tile tile) {

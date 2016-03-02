@@ -1,9 +1,9 @@
-public class Grunt extends Mob {
+public class Speeder extends Mob {
   
   private Stack<Node> pathing;
   private Node currentGoal;
   
-  public Grunt(float x, float y, Tilemap map, Stack<Node> pathing) {
+  public Speeder(float x, float y, Tilemap map, Stack<Node> pathing) {
     super(x, y, map);
     this.pathing = pathing;
     currentGoal = pathing.pop();
@@ -11,12 +11,12 @@ public class Grunt extends Mob {
   
   public void init() {
     // Statistics
-    health = 200; 
-    xSpeed = 2f;
-    ySpeed = 2f;
-    width = 32;
-    height = 32;
-    worth = 10;
+    health = 150; 
+    xSpeed = 5.8f;
+    ySpeed = 5.8f;
+    width = 16;
+    height = 16;
+    worth = 20;
   }
   
   public void update() {
@@ -27,8 +27,8 @@ public class Grunt extends Mob {
   
   public void render(int xOffset, int yOffset) {
     if(shouldShow) {
-      fill(0, 0, 255);
-      rect(x - xOffset, y - yOffset, width - 1, height - 1);
+      fill(255, 192, 203);
+      rect(x - xOffset + 8, y - yOffset + 8, width - 1, height - 1);
     }
   }
   
@@ -45,11 +45,11 @@ public class Grunt extends Mob {
       y -= ySpeed;
       
     // Check if the goal was basically reached
-    if(Math.abs((currentGoal.x << 5) - x) < 4 && Math.abs((currentGoal.y << 5) - y) < 4)
+    if(Math.abs((currentGoal.x << 5) - x) < 6 && Math.abs((currentGoal.y << 5) - y) < 6)
       currentGoal = pathing.pop();
       
     // Checks to see if the unit is approaching the castle
-    if(((int)x >> 5) < 19) 
+    if(((int)x >> 5) < 19)
       shouldRemove = true;
   }
   

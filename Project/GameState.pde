@@ -12,6 +12,8 @@ public abstract class GameState {
   public Sprite sand = new Sprite(3, 0, tiles);
   public Sprite wood = new Sprite(4, 0, tiles);
   
+  public Sprite castle = new Sprite("Castle.png");
+  
   public Spritesheet towers = new Spritesheet("towers.png", 32, 32);
   public Sprite basicTower = new Sprite(0, 0, towers);
   public Sprite slowTower = new Sprite(1, 0, towers);

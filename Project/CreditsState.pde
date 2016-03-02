@@ -15,7 +15,7 @@ public class CreditsState extends GameState {
   
   public void update() {
     currentY -= 1.1;
-    if(currentY <= -360)
+    if(currentY <= -260)
       currentY = 600;
   }
 
@@ -32,7 +32,6 @@ public class CreditsState extends GameState {
     text("Developed and Designed By:", 25, 20 + currentY);
     text("Brady Jessup", 50, 120 + currentY);
     text("Cole Traynor", 50, 220 + currentY);
-    text("Steve Pavlin", 50, 320 + currentY);
   }
   
   

@@ -21,7 +21,7 @@ public class Player extends Mob {
  
  // Test
  public void init() {
-   gold = 2000;
+   gold = 2500; 
    xSpeed = panSpeed;
    ySpeed = xSpeed / 4 * 3;
    font = createFont("Gothic.ttf", 24, true);

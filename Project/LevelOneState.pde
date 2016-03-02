@@ -9,6 +9,9 @@ public class LevelOneState extends GameState {
  private int xDest, yDest;
  private Stack<Node> pathing;
  
+ public int castleHealth = 20;
+ private PFont font;
+ 
  public LevelOneState(GameStateManager gsm) {
    super(gsm);
  }
@@ -20,6 +23,7 @@ public class LevelOneState extends GameState {
    ui = new LevelOneUI(this);
    enemies = new ArrayList<Mob>();
    projectiles = new ArrayList<Projectile>();
+   font = createFont("Gothic.ttf", 24, true);
    
    xDest = 17;
    yDest = 17;
@@ -32,19 +36,50 @@ public class LevelOneState extends GameState {
    updateLists();
    checkRemoved();
    waveManager.update();
+   checkPathing();
  }
  
+ int protoEnd = 0;
  public void render() {
    map.render();
+   renderCastle();
    renderLists();
    player.render(map.getXOffset(), map.getYOffset());
    ui.render();
+   renderCastleLife();
+   checkCastleLife();
    waveManager.render();
+   
+   // PROTOTYPE TEMP ENDING
+   if(waveManager.currentWave == 4) {
+     protoEnd++;
+     if(protoEnd > 2000)
+       text("You have completed the prototype!", 250, 200);
+     if(protoEnd > 2800) {
+       gsm.getStates().pop();  
+       gsm.getStates().push(new MenuState(gsm));
+     }
+   }
+   // END PROTOTYPE TEMP ENDING
+ }
+ 
+ private void renderCastle() {
+   if(player.x < 1150) {
+     image(castle.getImage(), (9 * 32) - map.getXOffset(), (10 * 32) - map.getYOffset());  
+   }
+ }
+ 
+ private void renderCastleLife() {
+   fill(125, 2, 88);
+   textFont(font);
+   text("Castle Health Remaining: " + castleHealth, 520, 25);  
  }
  
  private void checkRemoved() {
    for(int i = 0; i < enemies.size(); i++) {
      if(enemies.get(i).getShouldRemove()) {
+       if(((int)enemies.get(i).x >> 5) < 19)
+         castleHealth--;
        enemies.remove(i);    
      }
    }
@@ -73,6 +108,30 @@ public class LevelOneState extends GameState {
    }
  }
  
+ int counter = 0;
+ private void checkCastleLife() {
+   if(castleHealth <= 0) {
+     castleHealth = 0;
+     fill(125, 2, 88);
+     textFont(font);
+     text("Your Kingdom Has Been Destroyed!", 225, 275);
+     counter++;
+     if(counter > 360) {
+       gsm.getStates().pop();  
+       gsm.getStates().push(new MenuState(gsm));
+     }
+   }
+ }
+ 
+ // Method that ensures that pathing is available, and if it is not. Then destroy towers until a path can be made
+ private void checkPathing() {
+   if(pathing == null) {
+     while(pathing == null) {
+       map.destroyRandomTower();
+       pathing = findPath(74, 17, xDest, yDest);
+     }
+   }
+ }
  
  // A* Pathfinding
  public Stack<Node> findPath(int xStart, int yStart, int xDest, int yDest) {
@@ -98,25 +157,7 @@ public class LevelOneState extends GameState {
      }
      openList.remove(current);
      closedList.add(current);
-     // Loop through adjacent tiles
-     /*for(int i = 0; i < 9; i++) {
-       // If it is the current one we are on, skip it
-       if(i == 4) continue;  
-       int x = current.x;
-       int y = current.y;
-       int xi = (i % 3) - 1;
-       int yi = (i / 3) - 1;
-       Tile at = map.getTile((x + xi) << 5, (y + yi) << 5);
-       if(at == null) continue;
-       if(at.getWalkSolid()) continue;
-       int newX = x + xi;
-       int newY = y + yi;
-       double gCost = current.gCost + getDistance(x, y, newX, newY);
-       double hCost = getDistance(x, y, xDest, yDest);
-       Node node = new Node(newX, newY, current, gCost, hCost);
-       if(coordInList(closedList, newX, newY) && gCost >= node.gCost) continue;
-       if(!coordInList(openList, newX, newY) || gCost < node.gCost) openList.add(node);
-     }*/
+     // Loop through adjacent tiles (not diagonal)
      for(int i = 0; i < 4; i++) {
        int x = current.x;
        int y = current.y;

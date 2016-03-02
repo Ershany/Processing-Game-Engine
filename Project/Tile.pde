@@ -42,5 +42,8 @@ public abstract class Tile {
   public boolean getProjectileSolid() {
     return projectileSolid;
   }
+  public Tower getTower() {
+    return tower;  
+  }
   
 }
