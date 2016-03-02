@@ -88,18 +88,38 @@ public class LevelOneState extends GameState {
        projectiles.remove(i);  
      }
    }
+   for(int i = 0; i < particleList.size(); i++) {
+     if(particleList.get(i).getShouldRemove()) {
+       particleList.remove(i);  
+     }
+   }
  }
  
+ private RGB green = new RGB(0, 255, 0);
+ private RGB blue = new RGB(0, 0, 255);
+ private Random random = new Random();
  private void updateLists() {
    for(int i = 0; i < enemies.size(); i++) {
      enemies.get(i).update();  
+     if(enemies.get(i).poisoned && waveManager.ticksIntoWave % 12 == 0) {
+       particleList.add(new Particle(enemies.get(i).x + 14, enemies.get(i).y + 14, (float)random.nextGaussian(), (float)random.nextGaussian(), 4, 4, 30, green, RenderType.OFFSET));  
+     }
+     if(enemies.get(i).slowed && waveManager.ticksIntoWave % 12 == 0) {
+       particleList.add(new Particle(enemies.get(i).x + 14, enemies.get(i).y + 14, (float)random.nextGaussian(), (float)random.nextGaussian(), 4, 4, 30, blue, RenderType.OFFSET));  
+     }
    }
    for(int i = 0; i < projectiles.size(); i++) {
      projectiles.get(i).update();  
    }
+   for(int i = 0; i < particleList.size(); i++) {
+     particleList.get(i).update();
+   }
  }
  
  private void renderLists() {
+   for(int i = 0; i < particleList.size(); i++) {
+     particleList.get(i).render(map.getXOffset(), map.getYOffset());
+   }
    for(int i = 0; i < enemies.size(); i++) {
      enemies.get(i).render(map.getXOffset(), map.getYOffset());
    }

@@ -13,9 +13,9 @@ public class WaveManager {
   
   private int ticksIntoWave = 0;
   
-  private int frequency = 120;
+  private int frequency = 120; 
   
-  private int waveLength = 1800;
+  private int waveLength = 1800; 
   
   private int waveReward = 100;
   
@@ -74,9 +74,9 @@ public class WaveManager {
         
         // Set next waves variables
         if(currentWave == 1) { // round 2
-          frequency = 90;  
+          frequency = 90;   
           waveReward = 150;
-          waveLength = 1800; 
+          waveLength = 1800;  
         }
         else if(currentWave == 2) { //round 3
           frequency = 100;
