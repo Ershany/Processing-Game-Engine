@@ -12,7 +12,7 @@ public class BasicTower extends Tower {
   public void init() {
     cost = 100;
     damage = 5;
-    attackSpeed = 50;
+    attackSpeed = 60;
     range = 150;
   }
   

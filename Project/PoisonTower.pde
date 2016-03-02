@@ -14,7 +14,7 @@ public class PoisonTower extends Tower {
   }
   
   public void init() {
-    cost = 250;
+    cost = 200;
     damage = 5;
     attackSpeed = 60;
     range = 175;
