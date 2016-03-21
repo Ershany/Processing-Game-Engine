@@ -1,5 +1,9 @@
 public class Flyer extends Mob {
   
+  public Sprite[] anim = {new Sprite("flying1.png"), new Sprite("flying2.png"), new Sprite("flying3.png"), new Sprite("flying4.png")};
+  private int currentSprite = 0;
+  public final int animSpeed = 7; // Lower the int, the faster the animation
+  
   public Flyer(float x, float y, Tilemap map) {
     super(x, y, map);
   }
@@ -21,10 +25,19 @@ public class Flyer extends Mob {
     checkLife();
   }
   
+  private int counter = 0;
   public void render(int xOffset, int yOffset) {
     if(shouldShow) {
-      fill(10, 211, 3);
-      ellipse(x - xOffset + 8, y - yOffset + 8, width - 1, height - 1);
+      image(anim[currentSprite].getImage(), x - xOffset - 16, y - yOffset - 16, 48, 48);
+    }
+    
+    // Animate the sprite
+    counter++;
+    if(counter >= animSpeed) {
+      counter = 0;
+      currentSprite++;
+      if(currentSprite >= 4) 
+        currentSprite = 0;
     }
   }
   

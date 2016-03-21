@@ -44,6 +44,7 @@ public class LevelOneState extends GameState {
    map.render();
    renderCastle();
    renderLists();
+   image(infoUI.getImage(), 0, 0);
    player.render(map.getXOffset(), map.getYOffset());
    ui.render();
    renderCastleLife();

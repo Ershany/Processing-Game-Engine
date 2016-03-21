@@ -58,18 +58,25 @@ public abstract class UIButton extends UIElement {
 }
 
 public class TowerPurchaseButton extends UIButton {
- 
+    //UI
+    public Sprite towerDescriptionUI = new Sprite("towerInfoUI.png");
+    
     // Hotkey display font
     PFont font = createFont("Gothic.ttf", 24, true);  
     private String info;
+    private float infoUIX, infoUIY;
   
-    public TowerPurchaseButton(float x, float y, int[] rgb, int hotkey, String info) {
+    public TowerPurchaseButton(float x, float y, int[] rgb, int hotkey, String info, float infoUIX, float infoUIY) {
         super(x, y, rgb, hotkey);
         this.info = info;
+        this.infoUIX = infoUIX;
+        this.infoUIY = infoUIY;
     }
-    public TowerPurchaseButton(float x, float y, PImage image, int hotkey, String info) {
+    public TowerPurchaseButton(float x, float y, PImage image, int hotkey, String info, float infoUIX, float infoUIY) {
       super(x, y, image, hotkey);  
       this.info = info;
+      this.infoUIX = infoUIX;
+      this.infoUIY = infoUIY;
     }
     
     public void render() {
@@ -87,7 +94,8 @@ public class TowerPurchaseButton extends UIButton {
     }
     
     public void inside() {
-      fill(0, 0, 0);
+      fill(125, 2, 88);
+      image(towerDescriptionUI.getImage(), infoUIX, infoUIY);
       text(info, 185, y - 200);
     }
     

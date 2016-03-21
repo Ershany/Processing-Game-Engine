@@ -1,5 +1,9 @@
 public class Grunt extends Mob {
   
+  public Sprite[] anim = {new Sprite("grunt1.png"), new Sprite("grunt2.png"), new Sprite("grunt3.png"), new Sprite("grunt4.png")};
+  private int currentSprite = 0;
+  public final int animSpeed = 12; // Lower the int, the faster the animation
+  
   private Stack<Node> pathing;
   private Node currentGoal;
   
@@ -26,10 +30,19 @@ public class Grunt extends Mob {
     checkLife();
   }
   
+  private int counter = 0;
   public void render(int xOffset, int yOffset) {
     if(shouldShow) {
-      fill(0, 0, 255);
-      rect(x - xOffset, y - yOffset, width - 1, height - 1);
+      image(anim[currentSprite].getImage(), x - xOffset, y - yOffset, 31, 31);
+    }
+    
+    // Animate the sprite
+    counter++;
+    if(counter >= animSpeed) {
+      counter = 0;
+      currentSprite++;
+      if(currentSprite >= 4) 
+        currentSprite = 0;
     }
   }
   

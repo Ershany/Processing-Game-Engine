@@ -19,6 +19,9 @@ public abstract class GameState {
   public Sprite slowTower = new Sprite(1, 0, towers);
   public Sprite poisonTower = new Sprite(2, 0, towers);
   
+  // UI
+  public Sprite infoUI = new Sprite("infoUI.png");
+  
   // Lists to update and render
   protected List<Particle> particleList = new ArrayList<Particle>();
   public List<Mob> enemies;

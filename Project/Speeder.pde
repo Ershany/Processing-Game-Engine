@@ -1,5 +1,16 @@
 public class Speeder extends Mob {
   
+  public Spritesheet sheet = new Spritesheet("goblins.png", 27, 27);
+  public Sprite[][] anim = {{new Sprite(1, 0, sheet), new Sprite(0, 0, sheet), new Sprite(2, 0, sheet)},
+                            {new Sprite(1, 3, sheet), new Sprite(0, 3, sheet), new Sprite(2, 3, sheet)},
+                            {new Sprite(1, 2, sheet), new Sprite(0, 2, sheet), new Sprite(2, 2, sheet)},
+                            {new Sprite(1, 1, sheet), new Sprite(0, 1, sheet), new Sprite(2, 1, sheet)}};
+  
+  private int currentSet = 0; // current set of sprites currently being rendered ( 0=down, 1=up, 2=right, 3=left )
+  private int currentSprite = 1; // current sprite being rendered ( 0=idle, 1=move1, 2=move2 )
+  public final int animSpeed = 25; // Lower the int, the faster the animation
+  private boolean moveUp, moveDown, moveRight, moveLeft;
+  
   private Stack<Node> pathing;
   private Node currentGoal;
   
@@ -11,9 +22,9 @@ public class Speeder extends Mob {
   
   public void init() {
     // Statistics
-    health = 150; 
-    xSpeed = 5.8f;
-    ySpeed = 5.8f;
+    health = 200; 
+    xSpeed = 4.6f;
+    ySpeed = 4.6f; 
     width = 16;
     height = 16;
     worth = 20;
@@ -26,24 +37,68 @@ public class Speeder extends Mob {
     checkLife();
   }
   
+  private int counter = 0;
   public void render(int xOffset, int yOffset) {
+    if(moveUp) {
+      currentSet = 1;
+    }
+    else if(moveDown) {
+      currentSet = 0;
+    }
+    if(moveRight) {
+      currentSet = 2;
+    }
+    else if(moveLeft) {
+      currentSet = 3;
+    }
+    
     if(shouldShow) {
-      fill(255, 192, 203);
-      rect(x - xOffset + 8, y - yOffset + 8, width - 1, height - 1);
+      image(anim[currentSet][currentSprite].getImage(), x - xOffset + 2, y - yOffset + 2);
+    }
+    
+    // Animate the sprite
+    counter++;
+    if(counter >= animSpeed) {
+      counter = 0;
+      currentSprite++;
+      if(currentSprite >= 3) 
+        currentSprite = 1;
     }
   }
   
   
   private void move() {
+    // Check previous movement and change sprite depending on direction
+    float prevX = x, prevY = y;
+    moveUp = false;
+    moveDown = false;
+    moveRight = false;
+    moveLeft = false;
+    
+    
     // Move towards current goal
-    if((currentGoal.x << 5) > x)
+    if((currentGoal.x << 5) > x) {
       x += xSpeed;
-    if((currentGoal.x) << 5 < x)
+    }
+    if((currentGoal.x) << 5 < x) {
       x -= xSpeed;
-    if((currentGoal.y << 5) > y)
+    }
+    if((currentGoal.y << 5) > y) {
       y += ySpeed;
-    if((currentGoal.y << 5) < y)
+    }
+    if((currentGoal.y << 5) < y) {
       y -= ySpeed;
+    }
+    
+    // Check previous movement and change sprite depending on direction
+    if(x > prevX) 
+      moveRight = true;
+    else if(x < prevX)
+      moveLeft = true;
+    else if(y > prevY) 
+      moveDown = true;
+    else if(y < prevY)
+      moveUp = true;
       
     // Check if the goal was basically reached
     if(Math.abs((currentGoal.x << 5) - x) < 6 && Math.abs((currentGoal.y << 5) - y) < 6)
