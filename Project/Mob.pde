@@ -4,6 +4,7 @@ public abstract class Mob extends Entity {
   
   protected Rectangle hitbox;
   protected Tilemap map;
+  protected int maxHealth;
   protected int health;
   protected float xSpeed, ySpeed;
   protected int width, height;
@@ -50,6 +51,16 @@ public abstract class Mob extends Entity {
   public abstract void init();
   public abstract void update();
   public abstract void render(int xOffset, int yOffset);
+  
+  protected void renderHealth(int xOffset, int yOffset) {
+    // Fill the background (red)
+    fill(255, 0, 0);
+    rect(x - xOffset, y - 12 - yOffset, 32, 8);
+    
+    // Fill how much health you are missing (green)
+    fill(0, 255, 0);
+    rect(x - xOffset, y - 12 - yOffset, (health / (float)maxHealth) * 32, 8);
+  }
   
   public void hit(int damage) {
     health -= damage;  

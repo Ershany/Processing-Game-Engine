@@ -11,6 +11,7 @@ public class Flyer extends Mob {
   public void init() {
     // Statistics
     health = 150; 
+    maxHealth = health;
     xSpeed = 5f;
     ySpeed = 5f;
     width = 32;
@@ -29,6 +30,7 @@ public class Flyer extends Mob {
   public void render(int xOffset, int yOffset) {
     if(shouldShow) {
       image(anim[currentSprite].getImage(), x - xOffset - 16, y - yOffset - 16, 48, 48);
+      super.renderHealth(xOffset, yOffset);
     }
     
     // Animate the sprite

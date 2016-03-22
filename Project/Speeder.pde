@@ -23,6 +23,7 @@ public class Speeder extends Mob {
   public void init() {
     // Statistics
     health = 200; 
+    maxHealth = health;
     xSpeed = 4.6f;
     ySpeed = 4.6f; 
     width = 16;
@@ -54,6 +55,7 @@ public class Speeder extends Mob {
     
     if(shouldShow) {
       image(anim[currentSet][currentSprite].getImage(), x - xOffset + 2, y - yOffset + 2);
+      super.renderHealth(xOffset, yOffset);
     }
     
     // Animate the sprite

@@ -16,6 +16,7 @@ public class Grunt extends Mob {
   public void init() {
     // Statistics
     health = 200; 
+    maxHealth = health;
     xSpeed = 2f;
     ySpeed = 2f;
     width = 32;
@@ -34,6 +35,7 @@ public class Grunt extends Mob {
   public void render(int xOffset, int yOffset) {
     if(shouldShow) {
       image(anim[currentSprite].getImage(), x - xOffset, y - yOffset, 31, 31);
+      super.renderHealth(xOffset, yOffset);
     }
     
     // Animate the sprite
