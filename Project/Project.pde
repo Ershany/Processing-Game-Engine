@@ -1,7 +1,12 @@
+import processing.sound.*;
+
 private Game game;
 
 public static final int WIDTH = 800;
 public static final int HEIGHT = 600;
+
+// Sounds
+public SoundFile lightning = new SoundFile(Project.this, "Lightning_Sound.wav");
 
 void setup() {
   size(800, 600);
