@@ -21,13 +21,18 @@ public class Grunt extends Mob {
     ySpeed = 2f;
     width = 32;
     height = 32;
-    worth = 10;
+    worth = 25;
+    damage = 1;
   }
   
   public void update() {
     super.checkSlow();
     super.checkDot();
-    move();  
+    super.checkAmp();
+    super.checkSnare();
+    if(!snared) {
+      move();  
+    }
     checkLife();
   }
   
@@ -38,35 +43,39 @@ public class Grunt extends Mob {
       super.renderHealth(xOffset, yOffset);
     }
     
-    // Animate the sprite
-    counter++;
-    if(counter >= animSpeed) {
-      counter = 0;
-      currentSprite++;
-      if(currentSprite >= 4) 
-        currentSprite = 0;
+    if(!snared) {
+      // Animate the sprite
+      counter++;
+      if(counter >= animSpeed) {
+        counter = 0;
+        currentSprite++;
+        if(currentSprite >= 4) 
+          currentSprite = 0;
+      }
     }
   }
   
   
   private void move() {
-    // Move towards current goal
-    if((currentGoal.x << 5) > x)
-      x += xSpeed;
-    if((currentGoal.x) << 5 < x)
-      x -= xSpeed;
-    if((currentGoal.y << 5) > y)
-      y += ySpeed;
-    if((currentGoal.y << 5) < y)
-      y -= ySpeed;
-      
-    // Check if the goal was basically reached
-    if(Math.abs((currentGoal.x << 5) - x) < 4 && Math.abs((currentGoal.y << 5) - y) < 4)
-      currentGoal = pathing.pop();
-      
-    // Checks to see if the unit is approaching the castle
-    if(((int)x >> 5) < 19) 
-      shouldRemove = true;
+    if(!snared) {
+      // Move towards current goal
+      if((currentGoal.x << 5) > x)
+        x += xSpeed;
+      if((currentGoal.x) << 5 < x)
+        x -= xSpeed;
+      if((currentGoal.y << 5) > y)
+        y += ySpeed;
+      if((currentGoal.y << 5) < y)
+        y -= ySpeed;
+        
+      // Check if the goal was basically reached
+      if(Math.abs((currentGoal.x << 5) - x) < 4 && Math.abs((currentGoal.y << 5) - y) < 4)
+        currentGoal = pathing.pop();
+        
+      // Checks to see if the unit is approaching the castle
+      if(((int)x >> 5) < 19) 
+        shouldRemove = true;
+    }
   }
   
   private void checkLife() {

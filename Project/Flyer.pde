@@ -16,12 +16,15 @@ public class Flyer extends Mob {
     ySpeed = 5f;
     width = 32;
     height = 32;
-    worth = 25;
+    worth = 50;
+    damage = 1;
   }
   
   public void update() {
     super.checkSlow();
     super.checkDot();
+    super.checkAmp();
+    super.checkSnare();
     move();  
     checkLife();
   }
@@ -33,24 +36,28 @@ public class Flyer extends Mob {
       super.renderHealth(xOffset, yOffset);
     }
     
-    // Animate the sprite
-    counter++;
-    if(counter >= animSpeed) {
-      counter = 0;
-      currentSprite++;
-      if(currentSprite >= 4) 
-        currentSprite = 0;
+    if(!snared) {
+      // Animate the sprite
+      counter++;
+      if(counter >= animSpeed) {
+        counter = 0;
+        currentSprite++;
+        if(currentSprite >= 4) 
+          currentSprite = 0;
+      }
     }
   }
   
   
   private void move() {
-    // Move towards current goal ignoring towers
-    x -= xSpeed;
-      
-    // Checks to see if the unit is approaching the castle
-    if(((int)x >> 5) < 19)
-      shouldRemove = true;
+    if(!snared) {
+      // Move towards current goal ignoring towers
+      x -= xSpeed;
+        
+      // Checks to see if the unit is approaching the castle
+      if(((int)x >> 5) < 19)
+        shouldRemove = true;
+    }
   }
   
   private void checkLife() {

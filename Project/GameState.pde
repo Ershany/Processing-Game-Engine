@@ -18,6 +18,8 @@ public abstract class GameState {
   public Sprite basicTower = new Sprite(0, 0, towers);
   public Sprite slowTower = new Sprite(1, 0, towers);
   public Sprite poisonTower = new Sprite(2, 0, towers);
+  public Sprite ampTower = new Sprite(3, 0, towers);
+  public Sprite snareTower = new Sprite(4, 0, towers);
   
   // UI
   public Sprite infoUI = new Sprite("infoUI.png");

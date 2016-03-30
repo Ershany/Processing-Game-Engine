@@ -12,6 +12,8 @@ public class LevelOneState extends GameState {
  public int castleHealth = 20;
  private PFont font;
  
+ private boolean flash; // For Kronos
+ 
  public LevelOneState(GameStateManager gsm) {
    super(gsm);
  }
@@ -50,18 +52,7 @@ public class LevelOneState extends GameState {
    renderCastleLife();
    checkCastleLife();
    waveManager.render();
-   
-   // PROTOTYPE TEMP ENDING
-   if(waveManager.currentWave == 4) {
-     protoEnd++;
-     if(protoEnd > 2000)
-       text("You have completed the prototype!", 250, 200);
-     if(protoEnd > 2800) {
-       gsm.getStates().pop();  
-       gsm.getStates().push(new MenuState(gsm));
-     }
-   }
-   // END PROTOTYPE TEMP ENDING
+   checkFlash();
  }
  
  private void renderCastle() {
@@ -80,7 +71,7 @@ public class LevelOneState extends GameState {
    for(int i = 0; i < enemies.size(); i++) {
      if(enemies.get(i).getShouldRemove()) {
        if(((int)enemies.get(i).x >> 5) < 19)
-         castleHealth--;
+         castleHealth -= enemies.get(i).damage;
        enemies.remove(i);    
      }
    }
@@ -98,15 +89,20 @@ public class LevelOneState extends GameState {
  
  private RGB green = new RGB(0, 255, 0);
  private RGB blue = new RGB(0, 0, 255);
+ private RGB magenta = new RGB(255, 0, 255);
  private Random random = new Random();
  private void updateLists() {
    for(int i = 0; i < enemies.size(); i++) {
-     enemies.get(i).update();  
-     if(enemies.get(i).poisoned && waveManager.ticksIntoWave % 12 == 0) {
-       particleList.add(new Particle(enemies.get(i).x + 14, enemies.get(i).y + 14, (float)random.nextGaussian(), (float)random.nextGaussian(), 4, 4, 30, green, RenderType.OFFSET));  
+     Mob temp = enemies.get(i);
+     temp.update();  
+     if(temp.poisoned && waveManager.ticksIntoWave % 12 == 0) {
+       particleList.add(new Particle(temp.x + 14, enemies.get(i).y + 14, (float)random.nextGaussian(), (float)random.nextGaussian(), 4, 4, 30, green, RenderType.OFFSET));  
      }
-     if(enemies.get(i).slowed && waveManager.ticksIntoWave % 12 == 0) {
-       particleList.add(new Particle(enemies.get(i).x + 14, enemies.get(i).y + 14, (float)random.nextGaussian(), (float)random.nextGaussian(), 4, 4, 30, blue, RenderType.OFFSET));  
+     if(temp.slowed && waveManager.ticksIntoWave % 12 == 0) {
+       particleList.add(new Particle(temp.x + 14, enemies.get(i).y + 14, (float)random.nextGaussian(), (float)random.nextGaussian(), 4, 4, 30, blue, RenderType.OFFSET));  
+     }
+     if(temp.amped && waveManager.ticksIntoWave % 12 == 0) {
+       particleList.add(new Particle(temp.x + 14, enemies.get(i).y + 14, (float)random.nextGaussian(), (float)random.nextGaussian(), 4, 4, 30, magenta, RenderType.OFFSET));
      }
    }
    for(int i = 0; i < projectiles.size(); i++) {
@@ -126,6 +122,28 @@ public class LevelOneState extends GameState {
    }
    for(int i = 0; i < projectiles.size(); i++) {
      projectiles.get(i).render(map.getXOffset(), map.getYOffset());  
+   }
+ }
+ 
+ private int timer = 0;
+ private void checkFlash() {
+   if(flash) {
+     // Remove all the towers in a line to the base (Kronos destroyed them)
+     if(timer == 0) {
+       //17 y   20-76 x
+       for(int x = 20; x < 76; x++) {
+         map.removeTower(x, 17);
+       }
+       Kronos boss = (Kronos)enemies.get(0);
+       boss.pathing = findPath(74, 17, xDest, yDest);
+     }
+     
+     fill(255, 255, 255, 255 - timer);
+     rect(0, 0, 800, 600);
+     timer++;
+     if(timer == 300) {
+       flash = false;  
+     }
    }
  }
  

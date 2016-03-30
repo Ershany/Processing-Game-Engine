@@ -27,4 +27,21 @@ public class Sprite {
     return sprite; 
   }
   
+  public int getWidth() {
+    if(sheet == null) {
+      return sprite.width;
+    }
+    else {
+      return sheet.getSpriteWidth();  
+    }
+  }
+  public int getHeight() {
+    if(sheet == null) {
+      return sprite.height;
+    }
+    else {
+      return sheet.getSpriteHeight();  
+    }
+  }
+  
 }

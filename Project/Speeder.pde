@@ -28,12 +28,15 @@ public class Speeder extends Mob {
     ySpeed = 4.6f; 
     width = 16;
     height = 16;
-    worth = 20;
+    worth = 25;
+    damage = 1;
   }
   
   public void update() {
     super.checkSlow();
     super.checkDot();
+    super.checkAmp();
+    super.checkSnare();
     move();  
     checkLife();
   }
@@ -58,57 +61,62 @@ public class Speeder extends Mob {
       super.renderHealth(xOffset, yOffset);
     }
     
-    // Animate the sprite
-    counter++;
-    if(counter >= animSpeed) {
-      counter = 0;
-      currentSprite++;
-      if(currentSprite >= 3) 
-        currentSprite = 1;
+    if(!snared) {
+      // Animate the sprite
+      counter++;
+      if(counter >= animSpeed) {
+        counter = 0;
+        currentSprite++;
+        if(currentSprite >= 3) 
+          currentSprite = 1;
+      }
     }
   }
+
   
   
   private void move() {
-    // Check previous movement and change sprite depending on direction
-    float prevX = x, prevY = y;
-    moveUp = false;
-    moveDown = false;
-    moveRight = false;
-    moveLeft = false;
-    
-    
-    // Move towards current goal
-    if((currentGoal.x << 5) > x) {
-      x += xSpeed;
-    }
-    if((currentGoal.x) << 5 < x) {
-      x -= xSpeed;
-    }
-    if((currentGoal.y << 5) > y) {
-      y += ySpeed;
-    }
-    if((currentGoal.y << 5) < y) {
-      y -= ySpeed;
-    }
-    
-    // Check previous movement and change sprite depending on direction
-    if(x > prevX) 
-      moveRight = true;
-    else if(x < prevX)
-      moveLeft = true;
-    else if(y > prevY) 
-      moveDown = true;
-    else if(y < prevY)
-      moveUp = true;
+    if(!snared) {
+      // Check previous movement and change sprite depending on direction
+      float prevX = x, prevY = y;
+      moveUp = false;
+      moveDown = false;
+      moveRight = false;
+      moveLeft = false;
       
-    // Check if the goal was basically reached
-    if(Math.abs((currentGoal.x << 5) - x) < 6 && Math.abs((currentGoal.y << 5) - y) < 6)
-      currentGoal = pathing.pop();
       
-    // Checks to see if the unit is approaching the castle
-    if(((int)x >> 5) < 19)
-      shouldRemove = true;
+      // Move towards current goal
+      if((currentGoal.x << 5) > x) {
+        x += xSpeed;
+      }
+      if((currentGoal.x) << 5 < x) {
+        x -= xSpeed;
+      }
+      if((currentGoal.y << 5) > y) {
+        y += ySpeed;
+      }
+      if((currentGoal.y << 5) < y) {
+        y -= ySpeed;
+      }
+      
+      // Check previous movement and change sprite depending on direction
+      if(x > prevX) 
+        moveRight = true;
+      else if(x < prevX)
+        moveLeft = true;
+      else if(y > prevY) 
+        moveDown = true;
+      else if(y < prevY)
+        moveUp = true;
+        
+      // Check if the goal was basically reached
+      if(Math.abs((currentGoal.x << 5) - x) < 6 && Math.abs((currentGoal.y << 5) - y) < 6)
+        currentGoal = pathing.pop();
+        
+      // Checks to see if the unit is approaching the castle
+      if(((int)x >> 5) < 19)
+        shouldRemove = true;
+    }
   }
   
   private void checkLife() {

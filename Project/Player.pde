@@ -142,6 +142,22 @@ public class Player extends Mob {
      else
        towerToPlace = null;
    }
+   else if(key.equalsIgnoreCase("4")) {
+     if(!(towerToPlace instanceof AmpTower)) {
+       towerToPlace = new AmpTower(null, state, state.ampTower.getImage());
+     }
+     else {
+       towerToPlace = null;  
+     }
+   }
+   else if(key.equalsIgnoreCase("5")) {
+     if(!(towerToPlace instanceof SnareTower)) {
+       towerToPlace = new SnareTower(null, state, state.snareTower.getImage());  
+     }
+     else {
+       towerToPlace = null;  
+     }
+   }
  }
  public void keyReleased(String key) {
    

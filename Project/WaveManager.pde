@@ -43,8 +43,8 @@ public class WaveManager {
       // Else the game is in progress
       if(ticksIntoWave % frequency == 0 && !roundEnding) {
         // Set waves spawns
-        if(currentWave == 1) {
-          state.enemies.add(new Grunt(32 * 75, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
+        if(currentWave == 5) {
+          state.enemies.add(new Grunt(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
         }
         else if(currentWave == 2) {
           state.enemies.add(new Speeder(32 * 75, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
@@ -63,7 +63,23 @@ public class WaveManager {
             state.enemies.add(new Grunt(32 * 75, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
           }
         }
-        
+        else if(currentWave == 1) { // Kronos Wave
+          if(ticksIntoWave == frequency) {
+            frequency = 1;
+            state.enemies.add(new Kronos(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
+          }
+            
+          // Check to see if Kronos casted flash
+          for(int i = 0; i < state.enemies.size(); i++) {
+            if(state.enemies.get(i) instanceof Kronos) {
+              Kronos boss = (Kronos)state.enemies.get(i);
+              if(boss.flash) {
+                state.flash = true;
+                boss.flash = false;
+              }
+            }
+          }
+        }
       }
       
       if(ticksIntoWave >= waveLength) roundEnding = true;
@@ -75,7 +91,7 @@ public class WaveManager {
         // Set next waves variables
         if(currentWave == 1) { // round 2
           frequency = 90;   
-          waveReward = 150;
+          waveReward = 200;
           waveLength = 1800;  
         }
         else if(currentWave == 2) { //round 3
@@ -87,6 +103,11 @@ public class WaveManager {
           frequency = 70;
           waveReward = 200;
           waveLength = 1800; 
+        }
+        else if(currentWave == 4) { //round 5
+          frequency = 1;
+          waveReward = 500;
+          waveLength = 50;
         }
       }
     }

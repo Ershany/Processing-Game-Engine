@@ -96,6 +96,10 @@ public class Tilemap {
   public void addTower(int x, int y, Tower tower) {
     tiles[y][x].setTower(tower);  
   }
+  // Tile precision
+  public void removeTower(int x, int y) {
+    tiles[y][x].setTower(null);  
+  }
   
   // Getters
   public int getXOffset() {

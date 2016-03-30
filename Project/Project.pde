@@ -31,6 +31,12 @@ void keyPressed() {
      game.keyPressed("2");
    else if(key == '3')
      game.keyPressed("3");
+   else if(key == '4')
+     game.keyPressed("4");
+   else if(key == '5')
+     game.keyPressed("5");
+   else if(key == '6') 
+     game.keyPressed("6");
 }
 void keyReleased() {
    if(key == 'w' || keyCode == UP)
@@ -47,6 +53,12 @@ void keyReleased() {
      game.keyReleased("2");
    else if(key == '3')
      game.keyReleased("3");
+   else if(key == '4')
+     game.keyReleased("4");
+   else if(key == '5')
+     game.keyReleased("5");
+   else if(key == '6')
+     game.keyReleased("6");
 }
 
 // Mouse Controller

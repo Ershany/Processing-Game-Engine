@@ -8,9 +8,9 @@ public abstract class Mob extends Entity {
   protected int health;
   protected float xSpeed, ySpeed;
   protected int width, height;
-  public boolean stunned;
   public boolean shouldShow = true;
   protected int worth;
+  protected int damage;
   
   public boolean slowed;
   public int slowLength;
@@ -20,6 +20,13 @@ public abstract class Mob extends Entity {
   public int dotLength;
   public int dotDps;
   
+  public int ampLength;
+  public int ampPower;
+  public boolean amped;
+  
+  public boolean snared;
+  public int snareLength;
+  
   public Mob(float x, float y, Tilemap map) {
     super(x, y);
     this.map = map;
@@ -28,20 +35,24 @@ public abstract class Mob extends Entity {
   }
   
   protected void moveX(float xChange) {
-    if(map.getTile((int)(x + xChange), (int)y).getWalkSolid()) {
-      return;  
+    if(!snared) {
+      if(map.getTile((int)(x + xChange), (int)y).getWalkSolid()) {
+        return;  
+      }
+      
+      // Change player position
+      x += xChange;  
     }
-    
-    // Change player position
-    x += xChange;  
   }
   protected void moveY(float yChange) {  
-    if(map.getTile((int)x, (int)(y + yChange)).getWalkSolid()) {
-      return;  
+    if(!snared) {
+      if(map.getTile((int)x, (int)(y + yChange)).getWalkSolid()) {
+        return;  
+      }
+      
+      // Change player position
+      y += yChange;
     }
-    
-    // Change player position
-    y += yChange;
   }
   protected void updateHitbox() {
     hitbox.x = (int)x;
@@ -63,7 +74,14 @@ public abstract class Mob extends Entity {
   }
   
   public void hit(int damage) {
-    health -= damage;  
+    health -= (damage + ampPower);  
+  }
+  
+  public void snare(int snareLength) {
+    if(!(this.snareLength > snareLength)) { 
+      this.snareLength = snareLength;
+      snared = true;
+    }
   }
   
   public void slow(float slowPower, int slowLength) {
@@ -81,6 +99,21 @@ public abstract class Mob extends Entity {
     }
   }
   
+  // Amplifies the damage, that a unit will take
+  public void amp(int ampLength, int ampPower) {
+    if(amped) {
+      this.ampLength += ampLength;  
+      if(this.ampPower < ampPower) {
+        this.ampPower = ampPower;  
+      }
+    }
+    else {
+      amped = true;
+      this.ampLength = ampLength;
+      this.ampPower = ampPower;
+    }
+  }
+  
   public void dot(int dotDps, int dotLength) {
     this.dotDps += dotDps;
     this.dotLength += dotLength;
@@ -93,7 +126,7 @@ public abstract class Mob extends Entity {
       
       // dot damage
       if(dotLength % 60 == 0) {
-        health -= dotDps;
+        hit(dotDps);
       }
       if(dotLength <= 0) {
         poisoned = false;  
@@ -110,6 +143,25 @@ public abstract class Mob extends Entity {
         // Multiply the speeds by the reciprocal
         xSpeed *= (1/slowPower);
         ySpeed *= (1/slowPower);
+      }
+    }
+  }
+  
+  protected void checkAmp() {
+    if(amped) {
+      ampLength--;
+      if(ampLength <= 0) {
+        amped = false;
+        ampPower = 0;
+      }
+    }
+  }
+  
+  protected void checkSnare() {
+    if(snared) {
+      snareLength--;
+      if(snareLength <= 0) {
+         snared = false; 
       }
     }
   }
