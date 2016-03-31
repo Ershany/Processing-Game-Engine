@@ -11,15 +11,16 @@ public class Kronos extends Mob {
   
   private int currentSet = 0; // current set of sprites currently being rendered ( 0=down, 1=up, 2=right, 3=left )
   private int currentSprite = 1; // current sprite being rendered ( 0=idle, 1=move1, 2=move2 )
-  public final int animSpeed = 15; // Lower the int, the faster the animation
+  public final int animSpeed = 20; // Lower the int, the faster the animation
   private boolean moveUp, moveDown, moveRight, moveLeft;
   
   private Stack<Node> pathing;
   private Node currentGoal;
   
+  // Phase 0 - Prep Phase
   // Phase 1 - Lightning Phase
   // Phase 2 - Movement
-  private int phase = 1;
+  private int phase = 0;
   
   public Kronos(float x, float y, Tilemap map, Stack<Node> pathing) {
     super(x, y, map);
@@ -29,10 +30,10 @@ public class Kronos extends Mob {
   
   public void init() {
     // Statistics
-    health = 2000; 
+    health = 1000; 
     maxHealth = health;
-    xSpeed = 3.6f;
-    ySpeed = 3.6f; 
+    xSpeed = 2.4f;
+    ySpeed = 2.4f; 
     width = 32;
     height = 32;
     worth = 500;
@@ -48,8 +49,19 @@ public class Kronos extends Mob {
     checkLife();
   }
   
+  int prepCounter = 38;
   private void checkPhase() {
-    if(phase == 1) {
+    if(phase == 0) {
+      currentSprite = 0;
+      if(prepCounter == 38) {
+        lightningSound.play();  
+      }
+      prepCounter--;
+      if(prepCounter == 0) {
+        phase++;  
+      }
+    }
+    else if(phase == 1) {
       lightning();
     }
     else if(phase == 2) {
@@ -77,7 +89,6 @@ public class Kronos extends Mob {
       super.renderHealth(xOffset, yOffset);
     }
     if(phase == 1) {
-      lightning.play();
       currentSprite = 0;
       switch(currentLightning) {
         case 0: image(lightningAnim[0].getImage(), x - xOffset - (lightningAnim[0].getWidth() * 2), y - yOffset - 32, lightningAnim[0].getWidth() * 2, lightningAnim[0].getHeight() * 2);
@@ -91,7 +102,7 @@ public class Kronos extends Mob {
         case 4: image(lightningAnim[4].getImage(), x - xOffset - (lightningAnim[4].getWidth() * 2), y - yOffset - 44, lightningAnim[4].getWidth() * 2, lightningAnim[4].getHeight() * 2);
         break;
       }
-      if(counter % 4 == 0) {
+      if(counter % 13 == 0) {
         currentLightning++;  
         if(currentLightning > 4) {
           phase++;

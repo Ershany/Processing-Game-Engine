@@ -3,6 +3,10 @@ import java.util.*;
 
 public class LevelOneState extends GameState {
  
+ private Sprite ship = new Sprite("ship.png");
+ private int shipX = 75 * 32;
+ private int shipY = 500; 
+  
  private LevelOneUI ui;
  public WaveManager waveManager;
  
@@ -45,13 +49,14 @@ public class LevelOneState extends GameState {
  public void render() {
    map.render();
    renderCastle();
+   image(ship.getImage(), shipX - map.getXOffset(), shipY - map.getYOffset());
    renderLists();
    image(infoUI.getImage(), 0, 0);
    player.render(map.getXOffset(), map.getYOffset());
-   ui.render();
    renderCastleLife();
    checkCastleLife();
    waveManager.render();
+   ui.render();
    checkFlash();
  }
  
@@ -130,12 +135,12 @@ public class LevelOneState extends GameState {
    if(flash) {
      // Remove all the towers in a line to the base (Kronos destroyed them)
      if(timer == 0) {
-       //17 y   20-76 x
        for(int x = 20; x < 76; x++) {
          map.removeTower(x, 17);
        }
-       Kronos boss = (Kronos)enemies.get(0);
-       boss.pathing = findPath(74, 17, xDest, yDest);
+       // Calculate the new path
+       Kronos k = (Kronos)enemies.get(0);
+       k.pathing = calculateAIPath(74, 17);
      }
      
      fill(255, 255, 255, 255 - timer);
@@ -247,8 +252,9 @@ public class LevelOneState extends GameState {
    //return ((Math.abs((xStart >> 5) - (xDest >> 5))) + (Math.abs((yStart >> 5) - (yDest >> 5))));
  }
  
- private void calculateAIPath() {
-   pathing = findPath(74, 17, xDest, yDest);  
+ private Stack<Node> calculateAIPath(int x, int y) {
+   pathing = findPath(x, y, xDest, yDest);  
+   return pathing;
  }
  
  // Key Controller
@@ -277,5 +283,8 @@ public class LevelOneState extends GameState {
  }
  public Player getPlayer() {
    return player;  
+ }
+ public void requestPath(int x, int y) {
+   findPath(x, y, xDest, yDest);  
  }
 }

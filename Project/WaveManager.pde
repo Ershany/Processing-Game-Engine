@@ -1,5 +1,5 @@
 public class WaveManager {
- 
+  
   private PFont font;
   private LevelOneState state;
   private int xSpawn, ySpawn;
@@ -34,7 +34,7 @@ public class WaveManager {
         inProgress = true;
         currentWaveTimer = betweenWaveTimer;
         currentWave++;
-        state.calculateAIPath();
+        state.calculateAIPath(74, 17);
         roundEnding = false;
       }
     }
@@ -43,32 +43,31 @@ public class WaveManager {
       // Else the game is in progress
       if(ticksIntoWave % frequency == 0 && !roundEnding) {
         // Set waves spawns
-        if(currentWave == 5) {
+        if(currentWave == 1) {
           state.enemies.add(new Grunt(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
         }
         else if(currentWave == 2) {
-          state.enemies.add(new Speeder(32 * 75, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
+          state.enemies.add(new Speeder(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
         }
         else if(currentWave == 3) {
-          state.enemies.add(new Flyer(32 * 75, 32 * 17, state.getTilemap())); 
+          state.enemies.add(new Flyer(32 * 95, 32 * 17, state.getTilemap())); 
         }
         else if(currentWave == 4) {
           if(Math.random() * 3 <= 1) {
-            state.enemies.add(new Speeder(32 * 75, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
+            state.enemies.add(new Speeder(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
           }
           if(Math.random() * 3 <= 1) {
-            state.enemies.add(new Flyer(32 * 75, 32 * 17, state.getTilemap())); 
+            state.enemies.add(new Flyer(32 * 95, 32 * 17, state.getTilemap())); 
           }
           if(Math.random()* 3 <= 1) {
-            state.enemies.add(new Grunt(32 * 75, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
+            state.enemies.add(new Grunt(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
           }
         }
-        else if(currentWave == 1) { // Kronos Wave
+        else if(currentWave == 5) { // Kronos Wave
           if(ticksIntoWave == frequency) {
             frequency = 1;
             state.enemies.add(new Kronos(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
           }
-            
           // Check to see if Kronos casted flash
           for(int i = 0; i < state.enemies.size(); i++) {
             if(state.enemies.get(i) instanceof Kronos) {
@@ -105,9 +104,9 @@ public class WaveManager {
           waveLength = 1800; 
         }
         else if(currentWave == 4) { //round 5
-          frequency = 1;
+          frequency = 100;
           waveReward = 500;
-          waveLength = 50;
+          waveLength = 400;
         }
       }
     }

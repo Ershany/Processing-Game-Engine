@@ -1,16 +1,21 @@
-import processing.sound.*;
+import ddf.minim.*;
 
 private Game game;
+
+private AudioPlayer gameloopSound;
+private AudioPlayer lightningSound; 
+private Minim minim;//audio context
 
 public static final int WIDTH = 800;
 public static final int HEIGHT = 600;
 
-// Sounds
-public SoundFile lightning = new SoundFile(Project.this, "Lightning_Sound.wav");
-
 void setup() {
   size(800, 600);
   game = new Game();
+  minim = new Minim(this);
+  gameloopSound = minim.loadFile("Siege_Loop.mp3", 2048);
+  gameloopSound.loop();
+  lightningSound = minim.loadFile("Thunder_Sound.wav", 2048);
 }
 
 void draw() {

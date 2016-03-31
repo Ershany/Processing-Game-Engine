@@ -99,6 +99,7 @@ public class Tilemap {
   // Tile precision
   public void removeTower(int x, int y) {
     tiles[y][x].setTower(null);  
+    tiles[y][x].walkSolid = false;
   }
   
   // Getters
