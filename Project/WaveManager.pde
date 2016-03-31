@@ -44,12 +44,21 @@ public class WaveManager {
       if(ticksIntoWave % frequency == 0 && !roundEnding) {
         // Set waves spawns
         if(currentWave == 1) {
+          if(ticksIntoWave == frequency) {
+            state.getGSM().getStates().push(new InfoState(state.getGSM(), EnemyType.SLIME));
+          }
           state.enemies.add(new Grunt(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
         }
         else if(currentWave == 2) {
+          if(ticksIntoWave == 1) {
+            
+          }
           state.enemies.add(new Speeder(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
         }
         else if(currentWave == 3) {
+          if(ticksIntoWave == 1) {
+            
+          }
           state.enemies.add(new Flyer(32 * 95, 32 * 17, state.getTilemap())); 
         }
         else if(currentWave == 4) {
