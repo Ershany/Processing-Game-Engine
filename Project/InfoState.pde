@@ -44,12 +44,17 @@ public class InfoState extends GameState {
     fill(125, 2, 88);
     image(sprite.getImage(), 0, 0);
     for(int i = 0; i < info.length; i++) {
-      text(info[i], 200, 300 + (i * 100));
+      text(info[i], 225, 390 + (i * 30));
     }
+    
+    fill(255, 0, 0);
+    text("Back", 350, 500);
   }
   
   public void keyPressed(String key) {
-    
+    if(key.equalsIgnoreCase("enter")) {
+      gsm.getStates().pop();
+    }
   }
   public void keyReleased(String key) {
     

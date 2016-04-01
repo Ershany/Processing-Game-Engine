@@ -50,14 +50,14 @@ public class WaveManager {
           state.enemies.add(new Grunt(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
         }
         else if(currentWave == 2) {
-          if(ticksIntoWave == 1) {
-            
+          if(ticksIntoWave == frequency) {
+            state.getGSM().getStates().push(new InfoState(state.getGSM(), EnemyType.GOBLIN));
           }
           state.enemies.add(new Speeder(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
         }
         else if(currentWave == 3) {
-          if(ticksIntoWave == 1) {
-            
+          if(ticksIntoWave == frequency) {
+            state.getGSM().getStates().push(new InfoState(state.getGSM(), EnemyType.PHOENIX));
           }
           state.enemies.add(new Flyer(32 * 95, 32 * 17, state.getTilemap())); 
         }
@@ -74,6 +74,7 @@ public class WaveManager {
         }
         else if(currentWave == 5) { // Kronos Wave
           if(ticksIntoWave == frequency) {
+            state.getGSM().getStates().push(new InfoState(state.getGSM(), EnemyType.KRONOS));
             frequency = 1;
             state.enemies.add(new Kronos(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
           }
