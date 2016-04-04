@@ -13,10 +13,10 @@ public class SlowTower extends Tower {
   }
   
   public void init() {
-    cost = 200;
-    damage = 10;
-    attackSpeed = 140;
-    range = 100;
+    cost = 150;
+    damage = 5;
+    attackSpeed = 90;
+    range = 125;
   }
   
   public void update() {

@@ -4,8 +4,8 @@ import java.util.*;
 public class LevelOneState extends GameState {
  
  private Sprite ship = new Sprite("ship.png");
- private int shipX = 75 * 32;
- private int shipY = 500; 
+ private int shipX = 75 * 32 + 3;
+ private int shipY = 375; 
   
  private LevelOneUI ui;
  public WaveManager waveManager;
@@ -49,7 +49,7 @@ public class LevelOneState extends GameState {
  public void render() {
    map.render();
    renderCastle();
-   image(ship.getImage(), shipX - map.getXOffset(), shipY - map.getYOffset());
+   image(ship.getImage(), shipX - map.getXOffset(), shipY - map.getYOffset(), ship.getWidth() * 3, ship.getHeight() * 3);
    renderLists();
    image(infoUI.getImage(), 0, 0);
    player.render(map.getXOffset(), map.getYOffset());
@@ -261,6 +261,10 @@ public class LevelOneState extends GameState {
  public void keyPressed(String key) {
    player.keyPressed(key);
    waveManager.keyPressed(key);
+   
+   if(key.equalsIgnoreCase("heal")) {
+     castleHealth += 1;  
+   }
  }
  public void keyReleased(String key) {
    player.keyReleased(key);  

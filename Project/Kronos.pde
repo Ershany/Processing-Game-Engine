@@ -30,7 +30,7 @@ public class Kronos extends Mob {
   
   public void init() {
     // Statistics
-    health = 1000; 
+    health = 2000; 
     maxHealth = health;
     xSpeed = 2.4f;
     ySpeed = 2.4f; 

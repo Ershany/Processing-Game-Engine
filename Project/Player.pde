@@ -158,6 +158,9 @@ public class Player extends Mob {
        towerToPlace = null;  
      }
    }
+   else if(key.equalsIgnoreCase("money")) {
+     gold += 1000;  
+   }
  }
  public void keyReleased(String key) {
    
