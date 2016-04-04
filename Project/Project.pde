@@ -47,6 +47,8 @@ void keyPressed() {
      game.keyPressed("5");
    else if(key == '6') 
      game.keyPressed("6");
+   else if(key == 'm') 
+     game.keyPressed("begin");
 }
 void keyReleased() {
    if(key == 'w' || keyCode == UP)

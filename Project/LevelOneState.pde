@@ -260,6 +260,7 @@ public class LevelOneState extends GameState {
  // Key Controller
  public void keyPressed(String key) {
    player.keyPressed(key);
+   waveManager.keyPressed(key);
  }
  public void keyReleased(String key) {
    player.keyReleased(key);  

@@ -24,7 +24,7 @@ public class WaveManager {
     this.xSpawn = x;
     this.ySpawn = y;
     
-    font = createFont("Gothic.ttf", 24, true);  
+    font = createFont("Gothic.ttf", 24, true);
   }
   public void update() {
     // If the wave is not in progress, then keep the timer going
@@ -118,6 +118,10 @@ public class WaveManager {
           waveReward = 500;
           waveLength = 400;
         }
+        else if(currentWave == 5) { //round 6
+          state.getGSM().getStates().pop();
+          state.getGSM().getStates().push(new MenuState(state.getGSM()));
+        }
       }
     }
   }
@@ -129,6 +133,14 @@ public class WaveManager {
       textFont(font);
       
       text((currentWaveTimer/60 + 1) + " seconds until next wave", 275, 150);
+    }
+  }
+  
+  public void keyPressed(String k) {
+    if(k.equalsIgnoreCase("begin")) {
+      if(!inProgress) {
+        currentWaveTimer = 1;
+      }
     }
   }
   

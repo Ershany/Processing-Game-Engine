@@ -109,6 +109,8 @@ public class MenuState extends GameState {
      if(currentChoice == 0) {
         gsm.getStates().pop();
         gsm.getStates().push(new LevelOneState(gsm));
+        gsm.getStates().push(new InfoState(gsm, EnemyType.INTRO2));
+        gsm.getStates().push(new InfoState(gsm, EnemyType.INTRO1));
      }
      else if(currentChoice == 1) {
         gsm.getStates().push(new CreditsState(gsm));
