@@ -8,7 +8,10 @@ public class MenuState extends GameState {
   
  private Tilemap map;
  
- private String[] choices = { "Play", "Credits", "Quit" };
+ private String[] choices1 = { "Play", "Credits", "Quit" };
+ private String[] choices2 = { "Easy", "Normal", "Hard" };
+ private int currentSet = 0;
+ 
  private PFont font;
  private int currentChoice = 0;
   
@@ -42,18 +45,23 @@ public class MenuState extends GameState {
    renderLists();
    
    // Draw logo
-   image(logo.getImage(), 245, 10);
+   image(logo.getImage(), 247, 10);
    
    textFont(font);
    // Draw choices
-   for(int i = 0; i < choices.length; i++) {
+   for(int i = 0; i < choices1.length; i++) {
      if(currentChoice == i) {
        fill(255, 0, 0);  
      }
      else {
        fill(255);
      }
-     text(choices[i], 387 - (choices[i].length() * 10), 300 + 125 * i);
+     if(currentSet == 0) {
+       text(choices1[i], 387 - (choices1[i].length() * 10), 300 + 125 * i);
+     }
+     else {
+       text(choices2[i], 387 - (choices1[i].length() * 10), 300 + 125 * i);  
+     }
    }
  }
  
@@ -106,17 +114,28 @@ public class MenuState extends GameState {
  public void keyPressed(String key) {
    // Check if the player hit enter
    if(key.equalsIgnoreCase("enter")) {
-     if(currentChoice == 0) {
+     if(currentChoice == 0 && currentSet == 0) {
+        currentSet = 1;
+     }
+     else if(currentChoice == 1 && currentSet == 0) {
+        gsm.getStates().push(new CreditsState(gsm));
+     }
+     else if(currentChoice == 2 && currentSet == 0) {
+       System.exit(0);
+     }
+     
+     else if((currentChoice == 0 || currentChoice == 1 || currentChoice == 2) && currentSet == 1) {
+        if(currentChoice == 0) 
+          difficulty = GameDifficulty.EASY;
+        else if(currentChoice == 1) 
+          difficulty = GameDifficulty.NORMAL;
+        else 
+          difficulty = GameDifficulty.HARD;
+        
         gsm.getStates().pop();
         gsm.getStates().push(new LevelOneState(gsm));
         gsm.getStates().push(new InfoState(gsm, EnemyType.INTRO2));
         gsm.getStates().push(new InfoState(gsm, EnemyType.INTRO1));
-     }
-     else if(currentChoice == 1) {
-        gsm.getStates().push(new CreditsState(gsm));
-     }
-     else {
-       System.exit(0);
      }
    }
    
@@ -132,9 +151,9 @@ public class MenuState extends GameState {
    
    // Ensure currentChoice does not go out of bounds
    if(currentChoice <= -1) {
-     currentChoice = choices.length - 1;
+     currentChoice = choices1.length - 1;
    }
-   else if(currentChoice >= choices.length) {
+   else if(currentChoice >= choices1.length) {
      currentChoice = 0;
    }
  }

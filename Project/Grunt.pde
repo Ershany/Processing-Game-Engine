@@ -15,14 +15,30 @@ public class Grunt extends Mob {
   
   public void init() {
     // Statistics
-    health = 200; 
+    if(difficulty == GameDifficulty.EASY) {
+      health = 200;
+      worth = 50;
+      damage = 1;
+    }
+    else if(difficulty == GameDifficulty.NORMAL) {
+      health = 250; 
+      worth = 25;
+      damage = 1;
+    }
+    else if(difficulty == GameDifficulty.HARD) {
+      health = 300;
+      worth = 25;
+      damage = 2;
+    }
+    else {
+      println("Error occurred in enemy initialization, difficulty is not set...");  
+    }
+    
     maxHealth = health;
     xSpeed = 2f;
     ySpeed = 2f;
     width = 32;
     height = 32;
-    worth = 25;
-    damage = 1;
   }
   
   public void update() {

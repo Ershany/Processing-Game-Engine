@@ -10,14 +10,30 @@ public class Flyer extends Mob {
   
   public void init() {
     // Statistics
-    health = 150; 
+    if(difficulty == GameDifficulty.EASY) {
+      health = 100;
+      worth = 75;
+      damage = 1;
+    }
+    else if(difficulty == GameDifficulty.NORMAL) {
+      health = 150; 
+      worth = 50;
+      damage = 1;
+    }
+    else if(difficulty == GameDifficulty.HARD) {
+      health = 200;
+      worth = 25;
+      damage = 2;
+    }
+    else {
+      println("Error occurred in enemy initialization, difficulty is not set...");  
+    }
+    
     maxHealth = health;
-    xSpeed = 5f;
-    ySpeed = 5f;
     width = 32;
     height = 32;
-    worth = 50;
-    damage = 1;
+    xSpeed = 5f;
+    ySpeed = 5f;
   }
   
   public void update() {

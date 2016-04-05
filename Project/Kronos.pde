@@ -30,14 +30,30 @@ public class Kronos extends Mob {
   
   public void init() {
     // Statistics
-    health = 2000; 
+    if(difficulty == GameDifficulty.EASY) {
+      health = 1500;
+      worth = 750;
+      damage = 5;
+    }
+    else if(difficulty == GameDifficulty.NORMAL) {
+      health = 2000; 
+      worth = 500;
+      damage = 10;
+    }
+    else if(difficulty == GameDifficulty.HARD) {
+      health = 2500;
+      worth = 250;
+      damage = 20;
+    }
+    else {
+      println("Error occurred in enemy initialization, difficulty is not set...");  
+    }
+    
     maxHealth = health;
     xSpeed = 2.4f;
     ySpeed = 2.4f; 
     width = 32;
     height = 32;
-    worth = 500;
-    damage = 5;
   }
   
   public void update() {

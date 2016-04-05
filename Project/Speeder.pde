@@ -22,14 +22,30 @@ public class Speeder extends Mob {
   
   public void init() {
     // Statistics
-    health = 200; 
+    if(difficulty == GameDifficulty.EASY) {
+      health = 150;
+      worth = 50;
+      damage = 1;
+    }
+    else if(difficulty == GameDifficulty.NORMAL) {
+      health = 200; 
+      worth = 25;
+      damage = 1;
+    }
+    else if(difficulty == GameDifficulty.HARD) {
+      health = 250;
+      worth = 25;
+      damage = 2;
+    }
+    else {
+      println("Error occurred in enemy initialization, difficulty is not set...");  
+    }
+    
     maxHealth = health;
     xSpeed = 4.6f;
     ySpeed = 4.6f; 
     width = 16;
     height = 16;
-    worth = 25;
-    damage = 1;
   }
   
   public void update() {

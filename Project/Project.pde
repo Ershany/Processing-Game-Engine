@@ -9,6 +9,12 @@ private Minim minim; //audio context
 public static final int WIDTH = 800;
 public static final int HEIGHT = 600;
 
+public enum GameDifficulty {
+  EASY, NORMAL, HARD;
+}
+
+public GameDifficulty difficulty;
+
 void setup() {
   size(800, 600);
   game = new Game();
