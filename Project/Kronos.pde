@@ -47,6 +47,7 @@ public class Kronos extends Mob {
     super.checkSnare();
     checkPhase();
     checkLife();
+    checkPoison(); // Boss method
   }
   
   int prepCounter = 38;
@@ -126,6 +127,13 @@ public class Kronos extends Mob {
 
   private void lightning() {
     moveLeft = true;        
+  }
+  
+  // Makes sure the boss does not get too many poison stacks on him, as that would destroy him too easily
+  private void checkPoison() {
+    if(dotDps > 10) {
+      dotDps = 10;  
+    }
   }
   
   private void move() {

@@ -4,7 +4,7 @@ private Game game;
 
 private AudioPlayer gameloopSound;
 private AudioPlayer lightningSound; 
-private Minim minim;//audio context
+private Minim minim; //audio context
 
 public static final int WIDTH = 800;
 public static final int HEIGHT = 600;

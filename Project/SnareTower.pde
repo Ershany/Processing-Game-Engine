@@ -12,10 +12,10 @@ public class SnareTower extends Tower {
   }
   
   public void init() {
-    cost = 250;
-    damage = 3;
+    cost = 200;
+    damage = 4;
     attackSpeed = 180;
-    range = 150;
+    range = 100;
   }
   
   public void update() {
