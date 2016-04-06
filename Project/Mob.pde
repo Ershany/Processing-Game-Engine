@@ -134,6 +134,13 @@ public abstract class Mob extends Entity {
     }
   }
   
+  protected void clearDot() {
+   if(poisoned) {
+     dotLength = 0;
+     poisoned = false;
+   }
+  }
+  
   protected void checkSlow() {
     if(slowed) {
       slowLength--;
@@ -147,6 +154,16 @@ public abstract class Mob extends Entity {
     }
   }
   
+  protected void clearSlow() {
+    if(slowed) {
+      slowLength = 0;
+      slowed = false;
+      // Multiply the speeds by the reciprocal
+      xSpeed *= (1/slowPower);
+      ySpeed *= (1/slowPower);
+    }
+  }
+  
   protected void checkAmp() {
     if(amped) {
       ampLength--;
@@ -157,12 +174,27 @@ public abstract class Mob extends Entity {
     }
   }
   
+  protected void clearAmp() {
+    if(amped) {
+      ampLength = 0;
+      amped = false;
+      ampPower = 0;
+    }
+  }
+  
   protected void checkSnare() {
     if(snared) {
       snareLength--;
       if(snareLength <= 0) {
          snared = false; 
       }
+    }
+  }
+  
+  protected void clearSnare() {
+    if(snared) {
+      snareLength = 0;
+      snared = false;
     }
   }
   

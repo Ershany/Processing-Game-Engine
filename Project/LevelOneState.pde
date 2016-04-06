@@ -52,9 +52,10 @@ public class LevelOneState extends GameState {
    image(ship.getImage(), shipX - map.getXOffset(), shipY - map.getYOffset(), ship.getWidth() * 3, ship.getHeight() * 3);
    renderLists();
    image(infoUI.getImage(), 0, 0);
-   player.render(map.getXOffset(), map.getYOffset());
    renderCastleLife();
    checkCastleLife();
+   
+   player.render(map.getXOffset(), map.getYOffset());
    waveManager.render();
    ui.render();
    checkFlash();

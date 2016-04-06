@@ -62,17 +62,26 @@ public class WaveManager {
           state.enemies.add(new Flyer(32 * 95, 32 * 17, state.getTilemap())); 
         }
         else if(currentWave == 4) {
+          if(ticksIntoWave == frequency) {
+            state.getGSM().getStates().push(new InfoState(state.getGSM(), EnemyType.WITCH));
+          }
+          state.enemies.add(new Witch(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
+        }
+        else if(currentWave == 5) {
           if(Math.random() * 3 <= 1) {
             state.enemies.add(new Speeder(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
           }
           if(Math.random() * 3 <= 1) {
             state.enemies.add(new Flyer(32 * 95, 32 * 17, state.getTilemap())); 
           }
-          if(Math.random()* 3 <= 1) {
+          if(Math.random() * 3 <= 1) {
             state.enemies.add(new Grunt(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
           }
+          if(Math.random() * 3 <= 1) {
+            state.enemies.add(new Witch(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));  
+          }
         }
-        else if(currentWave == 5) { // Kronos Wave
+        else if(currentWave == 6) { // Kronos Wave
           if(ticksIntoWave == frequency) {
             state.getGSM().getStates().push(new InfoState(state.getGSM(), EnemyType.KRONOS));
             frequency = 1;
@@ -108,17 +117,22 @@ public class WaveManager {
           waveReward = 200;
           waveLength = 1005; 
         }
-        else if(currentWave == 3) { //round 4 
+        else if(currentWave == 3) { // round 4
+          frequency = 120;
+          waveReward = 200;
+          waveLength = 1005;
+        }
+        else if(currentWave == 4) { //round 5
           frequency = 70;
           waveReward = 200;
           waveLength = 1800; 
         }
-        else if(currentWave == 4) { //round 5
+        else if(currentWave == 5) { //round 6
           frequency = 100;
           waveReward = 500;
           waveLength = 400;
         }
-        else if(currentWave == 5) { //round 6
+        else if(currentWave == 6) { //round 7
           state.getGSM().getStates().pop();
           state.getGSM().getStates().push(new MenuState(state.getGSM()));
         }

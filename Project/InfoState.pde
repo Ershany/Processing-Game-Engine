@@ -1,5 +1,5 @@
 public enum EnemyType {
-  KRONOS, GOBLIN, SLIME, PHOENIX, INTRO1, INTRO2; 
+  KRONOS, GOBLIN, SLIME, PHOENIX, WITCH, INTRO1, INTRO2; 
 }
 
 public class InfoState extends GameState {
@@ -19,6 +19,7 @@ public class InfoState extends GameState {
     yLoc = 385;
     
     if(type == EnemyType.KRONOS) {
+      xLoc = 150;
       sprite = new Sprite("Kronos_Scroll.png");
       info = new String[]{"Once revered as the greatest warrior in the empire, the ex generals boasts", "vitality, attack damage and speed. Hell bent on revenge and a warrior", "to the heart, the ex general will destroy anything that", "stands in his way, including your defenses."};
     }
@@ -31,8 +32,14 @@ public class InfoState extends GameState {
       info = new String[]{"Individual slimes are weak and slow creatures and are typically not a big deal.", "However they are rarely found alone and turn their excess numbers into their", "strength as even the greatest defenses can be out numbered."};
     }
     else if(type == EnemyType.PHOENIX) {
+      xLoc = 160;
       sprite = new Sprite("Phoenixes_Scroll.png");
       info = new String[]{"The Phoenix is a rare species that rely heavily on their speed and", "agility to avoid damage and are capable to flying over any", "defense. Unfortunately the phoenix species have been hunted over the", "years for their high priced feathers and are low in numbers."};
+    }
+    else if(type == EnemyType.WITCH) {
+      xLoc = 170;
+      sprite = new Sprite("Witches_Scroll.png");
+      info = new String[]{"Witches were once very common in the empire, until the Aranian", "Empire destroyed them and considered them aliens. Now a Witch", "will accept any offer to gain revenge on the Aranian Empire."};
     }
     else if(type == EnemyType.INTRO1) {
       xLoc = 135;
