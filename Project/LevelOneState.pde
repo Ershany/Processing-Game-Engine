@@ -18,6 +18,10 @@ public class LevelOneState extends GameState {
  
  private boolean flash; // For Kronos
  
+ private boolean isNight;
+ private boolean isChanging; 
+ private int fadeTime = 60;
+ 
  public LevelOneState(GameStateManager gsm) {
    super(gsm);
  }
@@ -47,14 +51,18 @@ public class LevelOneState extends GameState {
  
  int protoEnd = 0;
  public void render() {
+   // Back Layer
    map.render();
    renderCastle();
    image(ship.getImage(), shipX - map.getXOffset(), shipY - map.getYOffset(), ship.getWidth() * 3, ship.getHeight() * 3);
    renderLists();
+   
+   renderNight(); // Affects the back layer
+   
+   // Front Layer
    image(infoUI.getImage(), 0, 0);
    renderCastleLife();
    checkCastleLife();
-   
    player.render(map.getXOffset(), map.getYOffset());
    waveManager.render();
    ui.render();
@@ -151,6 +159,19 @@ public class LevelOneState extends GameState {
        flash = false;  
      }
    }
+ }
+ 
+ private int currentChange = 0;
+ private void renderNight() {
+   if(!isNight && isChanging) {
+     currentChange++;
+     if(currentChange >= fadeTime * 100) {
+       isChanging = false;
+       isNight = true;
+     }
+   }
+   fill(0, 0, 0, currentChange / fadeTime);
+   rect(0, 0, 800, 600);
  }
  
  int counter = 0;

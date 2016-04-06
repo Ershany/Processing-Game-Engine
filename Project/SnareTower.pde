@@ -4,7 +4,7 @@ public class SnareTower extends Tower {
   private int projectileSize = 4;
   private RGB colour = new RGB(255, 106, 0);
   
-  private int snareLength = 75;
+  private int snareLength = 60;
   
   public SnareTower(Tile tile, GameState state, PImage image) {
     super(tile, state);

@@ -71,13 +71,13 @@ public class WaveManager {
           if(Math.random() * 3 <= 1) {
             state.enemies.add(new Speeder(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
           }
-          if(Math.random() * 3 <= 1) {
+          if(Math.random() * 4 <= 1) {
             state.enemies.add(new Flyer(32 * 95, 32 * 17, state.getTilemap())); 
           }
           if(Math.random() * 3 <= 1) {
             state.enemies.add(new Grunt(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
           }
-          if(Math.random() * 3 <= 1) {
+          if(Math.random() * 4 <= 1) {
             state.enemies.add(new Witch(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));  
           }
         }
@@ -116,9 +116,10 @@ public class WaveManager {
           frequency = 100;
           waveReward = 200;
           waveLength = 1005; 
+          state.isChanging = true;
         }
         else if(currentWave == 3) { // round 4
-          frequency = 120;
+          frequency = 100;
           waveReward = 200;
           waveLength = 1005;
         }
