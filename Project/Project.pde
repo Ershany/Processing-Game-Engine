@@ -55,10 +55,10 @@ void keyPressed() {
      game.keyPressed("6");
    else if(key == 'b') 
      game.keyPressed("begin");
-   else if(key == 'm')
-     game.keyPressed("money");
-   else if(key == 'h') 
-     game.keyPressed("heal");
+   //else if(key == 'm')
+     //game.keyPressed("money");
+   //else if(key == 'h') 
+     //game.keyPressed("heal");
 }
 void keyReleased() {
    if(key == 'w' || keyCode == UP)

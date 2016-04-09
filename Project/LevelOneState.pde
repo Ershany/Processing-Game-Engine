@@ -170,6 +170,13 @@ public class LevelOneState extends GameState {
        isNight = true;
      }
    }
+   if(isNight && isChanging) {
+     currentChange--;
+     if(currentChange <= 0) {
+       isChanging = false;
+       isNight = false;
+     }
+   }
    fill(0, 0, 0, currentChange / fadeTime);
    rect(0, 0, 800, 600);
  }

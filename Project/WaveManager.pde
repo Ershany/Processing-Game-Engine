@@ -7,7 +7,7 @@ public class WaveManager {
   public int currentWave = 0;
   
   // Adjustable stats
-  private final int betweenWaveTimer = 1800;
+  private final int betweenWaveTimer = 2400;
   private int currentWaveTimer = betweenWaveTimer;
   private boolean roundEnding;
   
@@ -126,7 +126,8 @@ public class WaveManager {
         else if(currentWave == 4) { //round 5
           frequency = 70;
           waveReward = 200;
-          waveLength = 1800; 
+          waveLength = 1800;
+          state.isChanging = true;
         }
         else if(currentWave == 5) { //round 6
           frequency = 100;
