@@ -13,7 +13,7 @@ public class LevelOneState extends GameState {
  private int xDest, yDest;
  private Stack<Node> pathing;
  
- public int castleHealth = 20;
+ public int castleHealth = 30;
  private PFont font;
  
  private boolean flash; // For Kronos
@@ -149,6 +149,7 @@ public class LevelOneState extends GameState {
        }
        // Calculate the new path
        Kronos k = (Kronos)enemies.get(0);
+       k.flash = false;
        k.pathing = calculateAIPath(74, 17);
      }
      

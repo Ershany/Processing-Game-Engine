@@ -4,24 +4,24 @@ public class Flyer extends Mob {
   private int currentSprite = 0;
   public final int animSpeed = 7; // Lower the int, the faster the animation
   
-  public Flyer(float x, float y, Tilemap map) {
-    super(x, y, map);
+  public Flyer(float x, float y, Tilemap map, int cycle) {
+    super(x, y, map, cycle);
   }
   
   public void init() {
     // Statistics
     if(difficulty == GameDifficulty.EASY) {
-      health = 100;
+      health = 100 + (cycle * 75);
       worth = 75;
       damage = 1;
     }
     else if(difficulty == GameDifficulty.NORMAL) {
-      health = 150; 
+      health = 150 + (cycle * 100); 
       worth = 50;
       damage = 1;
     }
     else if(difficulty == GameDifficulty.HARD) {
-      health = 200;
+      health = 200 + (cycle * 125);
       worth = 25;
       damage = 2;
     }

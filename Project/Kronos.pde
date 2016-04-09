@@ -22,8 +22,8 @@ public class Kronos extends Mob {
   // Phase 2 - Movement
   private int phase = 0;
   
-  public Kronos(float x, float y, Tilemap map, Stack<Node> pathing) {
-    super(x, y, map);
+  public Kronos(float x, float y, Tilemap map, Stack<Node> pathing, int cycle) {
+    super(x, y, map, cycle);
     this.pathing = pathing;
     currentGoal = pathing.pop();
   }
@@ -31,17 +31,17 @@ public class Kronos extends Mob {
   public void init() {
     // Statistics
     if(difficulty == GameDifficulty.EASY) {
-      health = 1500;
+      health = 1500 + (cycle * 1250);
       worth = 750;
       damage = 5;
     }
     else if(difficulty == GameDifficulty.NORMAL) {
-      health = 2000; 
+      health = 2000 + (cycle * 2000); 
       worth = 500;
       damage = 10;
     }
     else if(difficulty == GameDifficulty.HARD) {
-      health = 2500;
+      health = 2500 + (cycle * 3000);
       worth = 250;
       damage = 20;
     }

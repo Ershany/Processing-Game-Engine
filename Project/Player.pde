@@ -13,7 +13,7 @@ public class Player extends Mob {
  private int gold;
   
  public Player(float x, float y, LevelOneState state) {
-   super(x, y, state.getTilemap());
+   super(x, y, state.getTilemap(), 0);
    this.state = state;
    
    init();
@@ -43,8 +43,7 @@ public class Player extends Mob {
    fill(125, 2, 88);
    text("Gold: " + gold, 10, 25);
    
-   // Draw what wave the player is on
-   text("Wave: " + state.waveManager.currentWave, 10, 55);
+   text("Wave: " + Integer.toString(state.waveManager.currentWave + (6 * state.waveManager.cycle)), 10, 55);
 
    // Draw the tower at the mouse position if the player is gonna place one
    if(towerToPlace != null) {

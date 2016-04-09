@@ -27,9 +27,12 @@ public abstract class Mob extends Entity {
   public boolean snared;
   public int snareLength;
   
-  public Mob(float x, float y, Tilemap map) {
+  protected int cycle;
+  
+  public Mob(float x, float y, Tilemap map, int cycle) {
     super(x, y);
     this.map = map;
+    this.cycle = cycle;
     
     init();
   }

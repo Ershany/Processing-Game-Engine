@@ -14,8 +14,8 @@ public class Speeder extends Mob {
   private Stack<Node> pathing;
   private Node currentGoal;
   
-  public Speeder(float x, float y, Tilemap map, Stack<Node> pathing) {
-    super(x, y, map);
+  public Speeder(float x, float y, Tilemap map, Stack<Node> pathing, int cycle) {
+    super(x, y, map, cycle);
     this.pathing = pathing;
     currentGoal = pathing.pop();
   }
@@ -23,17 +23,17 @@ public class Speeder extends Mob {
   public void init() {
     // Statistics
     if(difficulty == GameDifficulty.EASY) {
-      health = 150;
+      health = 150 + (cycle * 150);
       worth = 50;
       damage = 1;
     }
     else if(difficulty == GameDifficulty.NORMAL) {
-      health = 200; 
+      health = 200 + (cycle * 225); 
       worth = 25;
       damage = 1;
     }
     else if(difficulty == GameDifficulty.HARD) {
-      health = 250;
+      health = 250 + (cycle * 250);
       worth = 25;
       damage = 2;
     }

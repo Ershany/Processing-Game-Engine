@@ -5,6 +5,7 @@ public class WaveManager {
   private int xSpawn, ySpawn;
   public boolean inProgress;
   public int currentWave = 0;
+  public int cycle = 0;
   
   // Adjustable stats
   private final int betweenWaveTimer = 2400;
@@ -45,47 +46,52 @@ public class WaveManager {
         // Set waves spawns
         if(currentWave == 1) {
           if(ticksIntoWave == frequency) {
-            state.getGSM().getStates().push(new InfoState(state.getGSM(), EnemyType.SLIME));
+            if(cycle == 0)
+              state.getGSM().getStates().push(new InfoState(state.getGSM(), EnemyType.SLIME));
           }
-          state.enemies.add(new Grunt(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
+          state.enemies.add(new Grunt(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone(), cycle));
         }
         else if(currentWave == 2) {
           if(ticksIntoWave == frequency) {
-            state.getGSM().getStates().push(new InfoState(state.getGSM(), EnemyType.GOBLIN));
+            if(cycle == 0)
+              state.getGSM().getStates().push(new InfoState(state.getGSM(), EnemyType.GOBLIN));
           }
-          state.enemies.add(new Speeder(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
+          state.enemies.add(new Speeder(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone(), cycle));
         }
         else if(currentWave == 3) {
           if(ticksIntoWave == frequency) {
-            state.getGSM().getStates().push(new InfoState(state.getGSM(), EnemyType.PHOENIX));
+            if(cycle == 0)
+              state.getGSM().getStates().push(new InfoState(state.getGSM(), EnemyType.PHOENIX));
           }
-          state.enemies.add(new Flyer(32 * 95, 32 * 17, state.getTilemap())); 
+          state.enemies.add(new Flyer(32 * 95, 32 * 17, state.getTilemap(), cycle)); 
         }
         else if(currentWave == 4) {
           if(ticksIntoWave == frequency) {
-            state.getGSM().getStates().push(new InfoState(state.getGSM(), EnemyType.WITCH));
+            if(cycle == 0)
+              state.getGSM().getStates().push(new InfoState(state.getGSM(), EnemyType.WITCH));
           }
-          state.enemies.add(new Witch(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
+          state.enemies.add(new Witch(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone(), cycle));
         }
         else if(currentWave == 5) {
           if(Math.random() * 3 <= 1) {
-            state.enemies.add(new Speeder(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
+            state.enemies.add(new Speeder(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone(), cycle));
           }
           if(Math.random() * 4 <= 1) {
-            state.enemies.add(new Flyer(32 * 95, 32 * 17, state.getTilemap())); 
+            state.enemies.add(new Flyer(32 * 95, 32 * 17, state.getTilemap(), cycle)); 
           }
           if(Math.random() * 3 <= 1) {
-            state.enemies.add(new Grunt(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
+            state.enemies.add(new Grunt(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone(), cycle));
           }
           if(Math.random() * 4 <= 1) {
-            state.enemies.add(new Witch(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));  
+            state.enemies.add(new Witch(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone(), cycle));  
           }
         }
         else if(currentWave == 6) { // Kronos Wave
           if(ticksIntoWave == frequency) {
-            state.getGSM().getStates().push(new InfoState(state.getGSM(), EnemyType.KRONOS));
+            if(cycle == 0)
+              state.getGSM().getStates().push(new InfoState(state.getGSM(), EnemyType.KRONOS));
             frequency = 1;
-            state.enemies.add(new Kronos(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone()));
+            state.enemies.add(new Kronos(32 * 74, 32 * 17, state.getTilemap(), (Stack<Node>)state.pathing.clone(), cycle));
           }
           // Check to see if Kronos casted flash
           for(int i = 0; i < state.enemies.size(); i++) {
@@ -108,35 +114,57 @@ public class WaveManager {
         
         // Set next waves variables
         if(currentWave == 1) { // round 2
-          frequency = 90;   
+          frequency = 90 - (cycle * 10);
+          if(frequency < 20) 
+            frequency = 20;
+            
           waveReward = 200;
           waveLength = 1800;  
         }
         else if(currentWave == 2) { //round 3
-          frequency = 100;
+          frequency = 100 - (cycle * 10);
+          if(frequency < 20) 
+            frequency = 20;
+            
           waveReward = 200;
           waveLength = 1005; 
+          state.isChanging = false;
+          state.isNight = false;
           state.isChanging = true;
         }
         else if(currentWave == 3) { // round 4
-          frequency = 100;
+          frequency = 100 - (cycle * 10);
+          if(frequency < 20)
+            frequency = 20;
+            
           waveReward = 200;
           waveLength = 1005;
         }
         else if(currentWave == 4) { //round 5
-          frequency = 70;
+          frequency = 70 - (cycle * 10);
+          if(frequency < 20)
+            frequency = 20;
           waveReward = 200;
           waveLength = 1800;
-          state.isChanging = true;
         }
         else if(currentWave == 5) { //round 6
           frequency = 100;
+            
           waveReward = 500;
           waveLength = 400;
+          state.isChanging = false;
+          state.isNight = true;
+          state.isChanging = true;
         }
         else if(currentWave == 6) { //round 7
-          state.getGSM().getStates().pop();
-          state.getGSM().getStates().push(new MenuState(state.getGSM()));
+          cycle++;
+          currentWave = 0;
+          frequency = 90 - (cycle * 10);
+          if(frequency < 20) 
+            frequency = 20;
+            
+          waveReward = 200;
+          waveLength = 1800;  
         }
       }
     }

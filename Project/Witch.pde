@@ -14,8 +14,8 @@ public class Witch extends Mob {
   private Stack<Node> pathing;
   private Node currentGoal;
   
-  public Witch(float x, float y, Tilemap map, Stack<Node> pathing) {
-    super(x, y, map);
+  public Witch(float x, float y, Tilemap map, Stack<Node> pathing, int cycle) {
+    super(x, y, map, cycle);
     this.pathing = pathing;
     currentGoal = pathing.pop();
   }
@@ -23,17 +23,17 @@ public class Witch extends Mob {
   public void init() {
     // Statistics
     if(difficulty == GameDifficulty.EASY) {
-      health = 125;
+      health = 125 + (cycle * 125);
       worth = 50;
       damage = 1;
     }
     else if(difficulty == GameDifficulty.NORMAL) {
-      health = 200; 
+      health = 200 + (cycle * 225); 
       worth = 25;
       damage = 2;
     }
     else if(difficulty == GameDifficulty.HARD) {
-      health = 275;
+      health = 275 + (cycle * 250);
       worth = 25;
       damage = 3;
     }
