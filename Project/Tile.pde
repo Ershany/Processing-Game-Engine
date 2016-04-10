@@ -22,8 +22,10 @@ public abstract class Tile {
   //Setters
   public void setTower(Tower tower) {
     this.tower = tower; 
-    // Flips the bit
-    walkSolid = true;
+    if(tower == null) 
+      walkSolid = false;
+    else 
+      walkSolid = true;
   }
   
   //Getters

@@ -76,6 +76,7 @@ public class Kronos extends Mob {
       prepCounter--;
       if(prepCounter == 0) {
         phase++;  
+        prepCounter = 38;
       }
     }
     else if(phase == 1) {

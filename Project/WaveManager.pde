@@ -183,7 +183,7 @@ public class WaveManager {
   public void keyPressed(String k) {
     if(k.equalsIgnoreCase("begin")) {
       if(!inProgress) {
-        currentWaveTimer = 1;
+        currentWaveTimer = 30;
       }
     }
   }

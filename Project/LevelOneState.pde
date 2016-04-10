@@ -158,6 +158,7 @@ public class LevelOneState extends GameState {
      timer++;
      if(timer == 300) {
        flash = false;  
+       timer = 0;
      }
    }
  }
@@ -199,11 +200,9 @@ public class LevelOneState extends GameState {
  
  // Method that ensures that pathing is available, and if it is not. Then destroy towers until a path can be made
  private void checkPathing() {
-   if(pathing == null) {
-     while(pathing == null) {
-       map.destroyRandomTower();
-       pathing = findPath(74, 17, xDest, yDest);
-     }
+   while(pathing == null) {
+     map.destroyRandomTower();
+     pathing = findPath(74, 17, xDest, yDest);
    }
  }
  
